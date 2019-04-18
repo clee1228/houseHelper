@@ -55,7 +55,7 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="25dp"
         android:text="Needed Supplies"
-        android:textSize="30" />
+        android:textSize="30dp" />
 
 
 </RelativeLayout>

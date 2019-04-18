@@ -1,9 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddSupplyActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/add_supply_title"
+        android:layout_width="269dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Add a Supply"
+        android:textColor="#386FB3"
+        android:textSize="30dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/submit_supply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="239dp"
+        android:text="SUBMIT SUPPLY"
+        android:textColor="#386FB3"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/go_back_text2"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="600dp"
+        android:text="GO BACK"
+        android:textColor="#386FB3"
+        android:textSize="27dp" />
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="71dp"
+        android:src="@drawable/left_arrow" />
+
+    <EditText
+        android:id="@+id/supply_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Supply name ..."
+        android:textColor="#959696" />
+
+    <Spinner
+        android:id="@+id/supply_urgency"
+        android:layout_width="147dp"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="167dp"
+        android:layout_marginEnd="232dp"
+        android:background="#DDDDDD"
+        android:spinnerMode="dropdown" />
+
+    <ImageView
+        android:id="@+id/submit_button"
+        android:layout_width="44dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="209dp"
+        android:layout_marginBottom="457dp"
+        android:src="@drawable/checked_box" />
+</RelativeLayout>
