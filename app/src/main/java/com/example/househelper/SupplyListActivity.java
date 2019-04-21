@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 public class SupplyListActivity extends AppCompatActivity {
 
+    ImageView addSupplyButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,15 @@ public class SupplyListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.getContext().startActivity(TaskListLinkIntent);
+            }
+        });
+
+        addSupplyButton = findViewById(R.id.add_supply_button);
+        addSupplyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent AddSupplyIntent = new Intent(v.getContext(), AddSupplyActivity.class);
+                startActivity(AddSupplyIntent);
             }
         });
     }
