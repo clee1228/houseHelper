@@ -36,7 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="11dp"
-        android:src="@drawable/message" />
+        android:src="@drawable/messages" />
 
     <ImageView
         android:id="@+id/task_list_link"
@@ -46,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="119dp"
         android:layout_marginBottom="11dp"
-        android:src="@drawable/task_list" />
+        android:src="@drawable/list" />
 
     <ImageView
         android:id="@+id/supply_list_link"
@@ -56,7 +56,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="219dp"
         android:layout_marginBottom="11dp"
-        android:src="@drawable/shopping_list" />
+        android:src="@drawable/shopping" />
 
     <ImageView
         android:id="@+id/profile_link"
@@ -66,7 +66,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="318dp"
         android:layout_marginBottom="11dp"
-        android:src="@drawable/profile" />
+        android:src="@drawable/person" />
 
     <TextView
         android:id="@+id/supplies_title"
