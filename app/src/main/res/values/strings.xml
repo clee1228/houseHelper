@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HouseHelper</string>
+    <string-array name="urgency_array">
+        <item>high</item>
+        <item>medium</item>
+        <item>low</item>
+    </string-array>
+
 </resources>

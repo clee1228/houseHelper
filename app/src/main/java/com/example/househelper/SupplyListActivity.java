@@ -13,7 +13,6 @@ public class SupplyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supply_list);
         ImageView messageBoardLink = findViewById(R.id.message_board_link);
-        messageBoardLink.setImageResource(R.drawable.icons8_chat_80);
 
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
 

@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".SupplyListActivity">
 
+    <TextView
+        android:id="@+id/add_supply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="555dp"
+        android:text="ADD SUPPLY"
+        android:textColor="#386FB3"
+        android:textSize="24dp" />
+
+    <ImageView
+        android:id="@+id/add_button"
+        android:layout_width="44dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="172dp"
+        android:layout_marginBottom="141dp"
+        android:src="@drawable/add" />
+
     <ImageView
         android:id="@+id/message_board_link"
         android:layout_width="wrap_content"
@@ -48,14 +70,23 @@
 
     <TextView
         android:id="@+id/supplies_title"
-        android:layout_width="269dp"
-        android:layout_height="61dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
         android:layout_marginTop="25dp"
         android:text="Needed Supplies"
         android:textSize="30dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/supply_recycler"
+        android:layout_width="355dp"
+        android:layout_height="467dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="80dp" />
 
 
 </RelativeLayout>
