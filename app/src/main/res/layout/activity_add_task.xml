@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddTaskActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/message_board_link"
+        android:layout_width="71dp"
+        android:layout_height="83dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/outline_message_black_18dp" />
+
+    <ImageView
+        android:id="@+id/task_list_link"
+        android:layout_width="78dp"
+        android:layout_height="77dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/outline_list_black_18dp" />
+
+    <ImageView
+        android:id="@+id/supply_list_link"
+        android:layout_width="76dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="224dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/outline_shopping_cart_black_18dp" />
+
+    <ImageView
+        android:id="@+id/profile_link"
+        android:layout_width="77dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="318dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/outline_person_outline_black_18dp" />
+
+    <TextView
+        android:id="@+id/supplies_title"
+        android:layout_width="269dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="25dp"
+        android:text="Needed Supplies"
+        android:textSize="30dp" />
+
+
+</RelativeLayout>
