@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item android:id="@+id/tasks"
+        android:icon="@drawable/tasks"
+        android:enabled="true"
+        android:title="Tasks" />
+
+    <item android:id="@+id/shopList"
+        android:icon="@drawable/shop_cart"
+        android:enabled="true"
+        android:title="Shop"
+        />
+
+    <item android:id="@+id/chat"
+        android:icon="@drawable/chat"
+        android:enabled="true"
+        android:title="Chat" />
+
+    <item android:id="@+id/profile"
+        android:icon="@drawable/user"
+        android:enabled="true"
+        android:title="Profile" />
+
+
+
+</menu>
