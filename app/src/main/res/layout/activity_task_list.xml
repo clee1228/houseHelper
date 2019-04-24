@@ -6,54 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".TaskListActivity">
 
+    <!-- recylcer view -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/task_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:transcriptMode="alwaysScroll"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:stackFromEnd="true" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:background="#4B698B"
+        app:titleTextColor="#fff"
+        app:title="Task List"
+        android:elevation="4dp"/>
+        <!--android:theme="@style/EditTextTheme"/>-->
 
-    <ImageView
-        android:id="@+id/message_board_link"
-        android:layout_width="71dp"
-        android:layout_height="83dp"
+    <!-- bottom navigation bar -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="6dp"
-        android:src="@drawable/outline_message_black_18dp" />
-
-    <ImageView
-        android:id="@+id/task_list_link"
-        android:layout_width="78dp"
-        android:layout_height="77dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="119dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_list_black_18dp" />
-
-    <ImageView
-        android:id="@+id/supply_list_link"
-        android:layout_width="76dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="224dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_shopping_cart_black_18dp" />
-
-    <ImageView
-        android:id="@+id/profile_link"
-        android:layout_width="77dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="318dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_person_outline_black_18dp" />
+        android:background="@color/colorPrimary"
+        android:itemBackground="@color/colorPrimary"
+        app:itemIconTint="#fff"
+        app:itemTextColor="#fff"
+        app:labelVisibilityMode="labeled"
+        app:itemTextAppearanceActive="@style/BottomNavigationView"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_navigation" />
 
 
 </RelativeLayout>

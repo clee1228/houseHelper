@@ -1,9 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageBoardActivity">
+    android:background="#fff"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#4B698B"
+        app:titleTextColor="#fff"
+        app:title="Group Chat"
+        android:elevation="4dp"
+        android:theme="@style/EditTextTheme"/>
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+
+    <!-- recylcer view -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llSend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:transcriptMode="alwaysScroll"
+        app:stackFromEnd="true" />
+
+
+    <RelativeLayout
+        android:id="@+id/llSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:theme="@style/EditTextTheme"
+        android:background="#ffffff"
+        android:paddingBottom="10dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="5dp">
+
+        <!-- new comment edit text  -->
+        <EditText
+            android:id="@+id/input_msg"
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/send_button"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="18dp"
+            android:layout_toLeftOf="@+id/send_button"
+            android:gravity="top"
+            android:hint="Type message"
+            android:inputType="textShortMessage" />
+
+        <!-- send button  -->
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#4B698B"
+            android:text="send"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
