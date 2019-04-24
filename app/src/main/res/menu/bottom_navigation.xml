@@ -5,23 +5,23 @@
 
 
     <item android:id="@+id/tasks"
-        android:icon="@drawable/tasks"
+        android:icon="@drawable/list"
         android:enabled="true"
         android:title="Tasks" />
 
     <item android:id="@+id/shopList"
-        android:icon="@drawable/shop_cart"
+        android:icon="@drawable/shopping"
         android:enabled="true"
         android:title="Shop"
         />
 
     <item android:id="@+id/chat"
-        android:icon="@drawable/chat"
+        android:icon="@drawable/messages"
         android:enabled="true"
         android:title="Chat" />
 
     <item android:id="@+id/profile"
-        android:icon="@drawable/user"
+        android:icon="@drawable/person"
         android:enabled="true"
         android:title="Profile" />
 

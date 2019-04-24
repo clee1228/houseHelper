@@ -28,45 +28,45 @@
         android:layout_marginBottom="141dp"
         android:src="@drawable/add" />
 
-    <ImageView
-        android:id="@+id/message_board_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/messages" />
+    <!--<ImageView-->
+        <!--android:id="@+id/message_board_link"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="35dp"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:src="@drawable/messages" />-->
 
-    <ImageView
-        android:id="@+id/task_list_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="119dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/list" />
+    <!--<ImageView-->
+        <!--android:id="@+id/task_list_link"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="119dp"-->
+        <!--android:layout_marginBottom="11dp"-->
+        <!--android:src="@drawable/list" />-->
 
-    <ImageView
-        android:id="@+id/supply_list_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="219dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/shopping" />
+    <!--<ImageView-->
+        <!--android:id="@+id/supply_list_link"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="219dp"-->
+        <!--android:layout_marginBottom="11dp"-->
+        <!--android:src="@drawable/shopping" />-->
 
-    <ImageView
-        android:id="@+id/profile_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="318dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/person" />
+    <!--<ImageView-->
+        <!--android:id="@+id/profile_link"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="318dp"-->
+        <!--android:layout_marginBottom="11dp"-->
+        <!--android:src="@drawable/person" />-->
 
     <TextView
         android:id="@+id/supplies_title"
@@ -92,6 +92,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="16dp" />

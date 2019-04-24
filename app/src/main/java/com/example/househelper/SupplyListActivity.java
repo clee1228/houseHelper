@@ -16,7 +16,7 @@ public class SupplyListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_supply_list);
 
 
-        ImageView messageBoardLink = findViewById(R.id.message_board_link);
+        ImageView messageBoardLink = findViewById(R.id.chat);
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,7 +25,7 @@ public class SupplyListActivity extends AppCompatActivity {
             }
         });
 
-        ImageView taskListLink = findViewById(R.id.task_list_link);
+        ImageView taskListLink = findViewById(R.id.tasks);
         final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
         taskListLink.setOnClickListener(new View.OnClickListener() {
             @Override
