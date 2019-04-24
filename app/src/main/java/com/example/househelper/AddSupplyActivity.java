@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class AddSupplyActivity extends AppCompatActivity {
 
 
     ImageView goBackButton;
-    ImageView submitButton;
+    Button submitButton;
     EditText inputted_supply;
     Spinner inputted_urgency;
 
@@ -42,7 +43,7 @@ public class AddSupplyActivity extends AppCompatActivity {
             }
         });
 
-        submitButton = findViewById(R.id.submit_button);
+        submitButton = findViewById(R.id.submit_supply_button);
         inputted_supply = findViewById(R.id.supply_name);
         inputted_urgency = findViewById(R.id.supply_urgency);
         submitButton.setOnClickListener(new View.OnClickListener() {

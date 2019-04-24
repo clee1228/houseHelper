@@ -12,13 +12,13 @@
     <item android:id="@+id/shopList"
         android:icon="@drawable/outline_shopping_cart_black_18dp"
         android:enabled="true"
-        android:title="Shop"
+        android:title="Supplies"
         />
 
     <item android:id="@+id/chat"
         android:icon="@drawable/outline_message_black_18dp"
         android:enabled="true"
-        android:title="Chat" />
+        android:title="Messages" />
 
     <item android:id="@+id/profile"
         android:icon="@drawable/outline_person_outline_black_18dp"
