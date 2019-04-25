@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -32,9 +33,11 @@ public class TaskListActivity extends AppCompatActivity {
 
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
+        Button addTaskButton = findViewById(R.id.add_task_button);
 
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
+        final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
 
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +50,12 @@ public class TaskListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(goToSupplyList);
+            }
+        });
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(goToAddTask);
             }
         });
 

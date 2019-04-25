@@ -17,7 +17,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Task start date..."
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@color/colorPrimary"
         android:textStyle="italic" />
 
     <EditText
@@ -31,48 +31,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Task frequency..."
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@color/colorPrimary"
         android:textStyle="italic" />
-
-    <ImageView
-        android:id="@+id/message_board_link"
-        android:layout_width="71dp"
-        android:layout_height="83dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="6dp"
-        android:src="@drawable/outline_message_black_18dp" />
-
-    <ImageView
-        android:id="@+id/task_list_link"
-        android:layout_width="78dp"
-        android:layout_height="77dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="119dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_list_black_18dp" />
-
-    <ImageView
-        android:id="@+id/supply_list_link"
-        android:layout_width="76dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="224dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_shopping_cart_black_18dp" />
-
-    <ImageView
-        android:id="@+id/profile_link"
-        android:layout_width="77dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="318dp"
-        android:layout_marginBottom="11dp"
-        android:src="@drawable/outline_person_outline_black_18dp" />
 
     <TextView
         android:id="@+id/add_task_title"
@@ -83,11 +43,11 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="17dp"
         android:text="Add Task to Rotation"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@color/colorPrimary"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/task_name_textView"
+        android:id="@+id/task_name_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -97,19 +57,40 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Task Name..."
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@color/colorPrimary"
         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="327dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="Submit Task" />
+        android:background="@color/colorPrimary"
+        android:itemBackground="@color/colorPrimary"
+        app:itemIconTint="#fff"
+        app:itemTextColor="#fff"
+        app:labelVisibilityMode="labeled"
+        app:itemTextAppearanceActive="@style/BottomNavigationView"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_navigation" />
 
+    <Button
+        android:id="@+id/submit_task_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="329dp"
+        android:layout_marginBottom="337dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="SUBMIT TASK"
+        android:textColor="@color/cardview_light_background" />
 
 </RelativeLayout>
