@@ -31,6 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +97,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(goToTasks);
             }
         });
+
+        TextView register = (TextView) findViewById(R.id.registerLink);
+        final Intent goToRegistration = new Intent(this, Registration.class);
+        register.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(goToRegistration);
+                Animatoo.animateSwipeLeft(LoginActivity.this);
+            }
+        });
+
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);

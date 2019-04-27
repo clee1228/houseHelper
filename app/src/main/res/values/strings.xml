@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">HouseHelper</string>
     <string-array name="urgency_array">
-            <item>high</item>
-            <item>medium</item>
-            <item>low</item>
+            
+        <item>high</item>
+            
+        <item>medium</item>
+            
+        <item>low</item>
     </string-array>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
