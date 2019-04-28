@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "285260223663",
+    "firebase_url": "https://house-helper-f5449.firebaseio.com",
+    "project_id": "house-helper-f5449",
+    "storage_bucket": "house-helper-f5449.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285260223663:android:966c7d1f04e18d89",
+        "android_client_info": {
+          "package_name": "com.example.househelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285260223663-uepbbibnq8b2cedrjoc3ub8jvnequ3fl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.househelper",
+            "certificate_hash": "c12dfbb2ed0a17f1043219e5824ee0c764079e76"
+          }
+        },
+        {
+          "client_id": "285260223663-s3r8oipja3avl52againn8pv5pvot52q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJTnZZYAUTRvPSCejOuSEUivq7UIdB8Eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285260223663-s3r8oipja3avl52againn8pv5pvot52q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
