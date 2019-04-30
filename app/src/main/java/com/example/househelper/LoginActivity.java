@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         // Set up the login form.
         username = findViewById(R.id.household);
-        password = (EditText) findViewById(R.id.pw1);
+        password = (EditText) findViewById(R.id.pw);
 
         findViewById(R.id.createUser).setOnClickListener(this);
         findViewById(R.id.registerLink).setOnClickListener(this);

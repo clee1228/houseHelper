@@ -35,7 +35,7 @@ public class RegisterUser extends AppCompatActivity {
         household = (EditText) findViewById(R.id.household);
         username = (EditText) findViewById(R.id.name);
         emailInput = (EditText) findViewById(R.id.register_email);
-        password = (EditText) findViewById(R.id.pw1);
+        password = (EditText) findViewById(R.id.pw);
 
 
         Button registerButton = (Button) findViewById(R.id.createUser);

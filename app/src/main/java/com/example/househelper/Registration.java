@@ -58,7 +58,6 @@ public class Registration extends AppCompatActivity {
                 startActivity(registerUser);
                 Animatoo.animateSwipeLeft(Registration.this);
 
-                Log.d("hello", "hello");
             }
         });
 
