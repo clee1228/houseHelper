@@ -31,6 +31,9 @@
         <item>Easy</item>
         <item>Moderate</item>
         <item>Hard</item>
-
     </string-array>
+
+    <string name="title_activity_register_new_household">RegisterNewHousehold</string>
+    <string name="title_activity_register_household">RegisterHousehold</string>
+    <string name="title_activity_register_user">RegisterUser</string>
 </resources>
