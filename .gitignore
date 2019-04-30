@@ -3,3 +3,7 @@
 .idea
 
 app/app.iml
+
+local.properties
+
+.DS_Store

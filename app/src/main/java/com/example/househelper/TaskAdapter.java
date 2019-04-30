@@ -57,7 +57,7 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         this.mUserNameTextView = mTaskBubbleLayout.findViewById(R.id.user_name_text_view);
 
         itemView.setClickable(true);
-        itemView.setOnClickListener(this);;
+        itemView.setOnClickListener(this);
         context = itemView.getContext();
     }
 
@@ -68,7 +68,8 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         for (String task : user.getTasks()) {
             TextView newTask = new TextView(this.context);
             newTask.setText(task);
-            newTask.setPadding(20, 5, 0, 0);
+            newTask.setPadding(50, 5, 0, 0);
+            //TODO: If task completed, add checkmark next to it
             mTaskBubbleLayout.addView(newTask);
         }
     }
