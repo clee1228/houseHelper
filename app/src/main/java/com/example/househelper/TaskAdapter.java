@@ -57,7 +57,7 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         this.mUserNameTextView = mTaskBubbleLayout.findViewById(R.id.user_name_text_view);
 
         itemView.setClickable(true);
-        itemView.setOnClickListener(this);;
+        itemView.setOnClickListener(this);
         context = itemView.getContext();
     }
 
