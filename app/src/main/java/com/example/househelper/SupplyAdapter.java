@@ -33,8 +33,8 @@ public class SupplyAdapter extends RecyclerView.Adapter<SupplyViewHolder> {
         // here, we the location that should be displayed at index `position` in our recylcer view
         // everytime the recycler view is refreshed, this method is called getItemCount() times (because
         // it needs to recreate every cell).
-//        User user = mUsers.get(position);
-//        ((SupplyViewHolder) holder).bind(user);
+        Supply supply = mSupplies.get(position);
+        ((SupplyViewHolder) holder).bind(supply);
     }
 
     @Override
@@ -50,20 +50,23 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     private LinearLayout mSupplyBubbleLayout;
     private Context context;
     private TextView mSupplyTextView;
+    private TextView mSupplyUrgencyTextView;
 
     SupplyViewHolder(View itemView) {
         super(itemView);
         this.mSupplyBubbleLayout = itemView.findViewById(R.id.supply_cell_layout);
         this.mSupplyTextView = mSupplyBubbleLayout.findViewById(R.id.supply_name_text_view);
+        this.mSupplyUrgencyTextView = mSupplyBubbleLayout.findViewById(R.id.urgency_text_view);
 
         itemView.setClickable(true);
-        itemView.setOnClickListener(this);;
+        itemView.setOnClickListener(this);
         context = itemView.getContext();
     }
 
     void bind(Supply supply) {
         this.mSupply = supply;
         mSupplyTextView.setText(supply.getName());
+        mSupplyUrgencyTextView.setText("urgency: " + supply.getUrgency());
 //        }
     }
 

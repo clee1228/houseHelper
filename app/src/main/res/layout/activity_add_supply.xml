@@ -19,30 +19,6 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="25dp"/>
 
-    <!--<TextView-->
-        <!--android:id="@+id/submit_supply"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginStart="27dp"-->
-        <!--android:layout_marginTop="239dp"-->
-        <!--android:text="SUBMIT SUPPLY"-->
-        <!--android:textColor="#386FB3"-->
-        <!--android:textSize="24dp" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/go_back_text"-->
-        <!--android:layout_width="138dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginStart="112dp"-->
-        <!--android:layout_marginTop="600dp"-->
-        <!--android:text="GO BACK"-->
-        <!--android:textColor="#386FB3"-->
-        <!--android:textSize="27sp" />-->
-
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
@@ -64,6 +40,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Supply name ..."
+        app:backgroundTint="@color/colorPrimaryDark"
         android:textColor="#959696" />
 
     <Spinner

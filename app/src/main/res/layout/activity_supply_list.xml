@@ -17,15 +17,6 @@
         android:text="ADD SUPPLY"
         android:textColor="#4D4D4D" />
 
-    <!--<ImageView-->
-        <!--android:id="@+id/add_supply_button"-->
-        <!--android:layout_width="44dp"-->
-        <!--android:layout_height="38dp"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginStart="172dp"-->
-        <!--android:layout_marginBottom="141dp"-->
-        <!--android:src="@drawable/add" />-->
 
     <TextView
         android:id="@+id/supplies_title"
@@ -44,7 +35,7 @@
         android:layout_height="467dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="80dp" />
 
     <FrameLayout
