@@ -2,15 +2,12 @@ package com.example.househelper;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -34,18 +32,16 @@ import java.util.HashMap;
 
 public class MessageBoardActivity extends AppCompatActivity {
 
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<Message> msgList = new ArrayList<Message>();
-//    private ArrayList<Message> sentMsgs = new ArrayList<Message>();
     public HashMap<String, String> messages;
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     RelativeLayout layout;
     EditText message;
     Button sendButton;
     Toolbar mToolbar;
-    String username, household;
+    String household;
 
 
     @Override
@@ -63,26 +59,27 @@ public class MessageBoardActivity extends AppCompatActivity {
         message = (EditText) layout.findViewById(R.id.input_msg);
         sendButton = (Button) layout.findViewById(R.id.send_button);
 
-        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
         setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickForSendButton();
 
         msgList = new ArrayList<Message>();
-
-//        getHousename(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(String value) {
-//                Log.d("callback print1", value);
-//                household = value;
-//            }
-//        });
-//
-//        Log.d("HOUSEHOLD", household);
 
 
         final DatabaseReference chats = database.getReference(household);
@@ -96,10 +93,11 @@ public class MessageBoardActivity extends AppCompatActivity {
                     Date date = getDate(s);
                     String message = ds.child("message").getValue(String.class);
                     String user = ds.child("user").getValue(String.class);
-                    Message newMsg = new Message(message, user, date);
+                    String time = ds.child("time").getValue(String.class);
+                    Message newMsg = new Message(message, user, date, time);
+
                     msgList.add(newMsg);
                 }
-
 
                 setAdapterAndUpdateData();
             }
@@ -132,7 +130,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         });
     }
 
-     public Date getDate(String s){
+    public Date getDate(String s){
         Date date = null;
         try {
             date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
@@ -161,51 +159,22 @@ public class MessageBoardActivity extends AppCompatActivity {
 
     private void postNewComment(String msgInput) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Message newMsg = new Message(msgInput, user.getDisplayName(), new Date());
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar now = Calendar.getInstance();
+        String timeStamp = (now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
+
+        Message newMsg = new Message(msgInput, currUser.getDisplayName(), new Date(), timeStamp);
         msgList.add(newMsg);
 
-//        getHousename(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(String value) {
-//                Log.d("callback print", value);
-//                household = value;
-//            }
-//        });
-
-
-        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference chats  = database.getReference(household);
         String time = String.valueOf(new Date());
         DatabaseReference chat = chats.child(time);
         chat.child("user").setValue(currUser.getDisplayName());
         chat.child("message").setValue(msgInput);
+        chat.child("time").setValue(timeStamp);
         setAdapterAndUpdateData();
     }
-
-//    private interface FirebaseCallback{
-//        void onCallback(String value);
-//    }
-
-
-//    private void getHousename(final FirebaseCallback callback) {
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference userInfo = database.getReference("Users").child(user.getUid()).child("house");
-//
-//        userInfo.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String houseName = dataSnapshot.getValue(String.class);
-//                callback.onCallback(houseName);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.d("onCancelled", databaseError.getMessage());
-//            }
-//        });
-//    }
 
 
     @Override

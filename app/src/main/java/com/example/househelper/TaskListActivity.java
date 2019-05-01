@@ -29,9 +29,6 @@ public class TaskListActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +36,8 @@ public class TaskListActivity extends AppCompatActivity {
         setTitle("Tasks");
 
 
-
-
-
-
-
-
-
         Intent intent = getIntent();
         Bundle getExtras = intent.getExtras();
-        username = getExtras.getString("username");
         household = getExtras.getString("houseName");
 
 
@@ -66,7 +55,7 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
-        extras.putString("username", username);
+
 
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {

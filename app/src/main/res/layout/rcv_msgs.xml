@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rcv_msgs"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,23 +9,34 @@
     android:paddingLeft="15dp"
     android:paddingRight="60dp">
 
-    <View
+
+    <ImageView
         android:id="@+id/avatar"
         android:layout_width="34dp"
         android:layout_height="34dp"
+        android:paddingTop="10dp"
         android:layout_alignParentLeft="true"
         android:background="@drawable/icon_circle"
         android:scaleType="centerInside" />
+
 
     <TextView
         android:id="@+id/firstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/avatar"
-        android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/avatar"
         android:paddingBottom="4dp"
-        android:text="Rose" />
+        android:textSize="14sp"
+        android:maxWidth="240dp"
+        android:text="Rose"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="4dp" />
+
+
+
 
     <TextView
         android:id="@+id/msg_body"
@@ -38,4 +50,15 @@
         android:paddingVertical="12dp"
         android:text="How are you doing? This is a long message that should probably wrap."
         android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/rcvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/msg_body"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@id/msg_body"
+        android:paddingBottom="0dp"
+        android:text="11:03" />
+
 </RelativeLayout>

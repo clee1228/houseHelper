@@ -27,9 +27,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(mChats.get(position).getUsername() == user.getDisplayName()) {
-            Log.d("Chat username = ", mChats.get(position).getUsername());
-            Log.d("Curr Display Name = ", user.getDisplayName());
+        if(mChats.get(position).getUsername().equals(user.getDisplayName())) {
             return 1;
         } else {
             return 2;
@@ -44,31 +42,27 @@ public class ChatAdapter extends RecyclerView.Adapter {
         } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.rcv_msgs, parent, false);
             return new ChatViewHolder(view);
-            /* received chats */
+
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // here, we the comment that should be displayed at index `position` in our recylcer view
-        // everytime the recycler view is refreshed, this method is called getItemCount() times (because
-        // it needs to recreate every cell).
 
-        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+        // every time recycler view is refreshed, this method is called getItemCount() times
+        // to recreate every cell
+
         Message msg = mChats.get(position);
-
-        if(msg.getUsername() == currUser.getDisplayName()) {
-            ((SentChatViewHolder) holder).bindSentMsg(msg);
-
-        } else {
-            ((ChatViewHolder) holder).bind(msg);
+        switch((holder.getItemViewType())){
+            case 1:  SentChatViewHolder sent = (SentChatViewHolder) holder;
+                     sent.bindSentMsg(msg);
+                     break;
+            case 2:  ((ChatViewHolder) holder).bind(msg);
+                     break;
         }
 
-//        Message msg = mChats.get(position);
-//        ((ChatViewHolder) holder).bind(msg);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mChats.size();
@@ -80,20 +74,20 @@ class ChatViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
     public RelativeLayout receivedBubbleLayout;
     public TextView mUsernameTextView;
-    public TextView mDateTextView;
+    public TextView rcvTimeView;
     public TextView mMsgTextView;
 
     public ChatViewHolder(View itemView) {
         super(itemView);
         receivedBubbleLayout = itemView.findViewById(R.id.rcv_msgs);
         mUsernameTextView = receivedBubbleLayout.findViewById(R.id.firstName);
-//        mDateTextView = mCommentBubbleLayout.findViewById(R.id.date_text_view);
+        rcvTimeView = receivedBubbleLayout.findViewById(R.id.rcvTime);
         mMsgTextView = receivedBubbleLayout.findViewById(R.id.msg_body);
     }
 
     void bind(Message msg) {
         mUsernameTextView.setText(msg.user);
-//        mDateTextView.setText("posted " + msg.elapsedTimeString() + " ago");
+        rcvTimeView.setText(msg.time);
         mMsgTextView.setText(msg.text);
     }
 }
@@ -102,19 +96,19 @@ class ChatViewHolder extends RecyclerView.ViewHolder {
 
         // each data item is just a string in this case
         public RelativeLayout sentBubbleLayout;
-//        public TextView mDateTextView;
+        public TextView sentTimeView;
         public TextView myMsgTextView;
 
         public SentChatViewHolder(View itemView) {
             super(itemView);
             sentBubbleLayout = itemView.findViewById(R.id.my_msgs);
-//        mDateTextView = mCommentBubbleLayout.findViewById(R.id.date_text_view);
+            sentTimeView = sentBubbleLayout.findViewById(R.id.sentTime);
             myMsgTextView = sentBubbleLayout.findViewById(R.id.msg_body);
         }
 
         void bindSentMsg(Message msg) {
-//        mDateTextView.setText("posted " + msg.elapsedTimeString() + " ago");
             myMsgTextView.setText(msg.text);
+            sentTimeView.setText(msg.time);
         }
     }
 

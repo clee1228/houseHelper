@@ -3,13 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+
     tools:context=".RegisterUser">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/registerHouseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#4B698B"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/back_arrow"
+        app:title="Join Existing Household"
+        app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title."
+        app:titleTextColor="#fff" />
+
+
 
     <ScrollView
         android:id="@+id/login_form"
@@ -25,31 +36,31 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-            <!-- App Icon -->
-            <ImageView android:src="@drawable/reg_house"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginBottom="24dp"
-                android:layout_gravity="center_horizontal" />
+
+            <!-- Household -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextTheme">
+
+            <EditText
+                android:id="@+id/household"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Household Name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:theme="@style/EditTextTheme" />
+
+        </android.support.design.widget.TextInputLayout>
 
 
             <!-- Email Input -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextTheme">
-
-                <EditText
-                    android:id="@+id/household"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Household Name"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:theme="@style/EditTextTheme" />
-
-            </android.support.design.widget.TextInputLayout>
+                android:theme="@style/EditTextTheme"/>
 
             <!-- Name Input -->
             <android.support.design.widget.TextInputLayout

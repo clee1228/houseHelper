@@ -27,6 +27,8 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
             
         <item name="android:textColorHint">#D3D3D3</item>
+        <item name="android:textSize">16sp</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -44,5 +46,9 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title." parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:textSize">20sp</item> </style>
+
 
 </resources>

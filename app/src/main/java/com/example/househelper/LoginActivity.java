@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent first = new Intent(LoginActivity.this, TaskListActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("houseName",houseName);
-                    extras.putString("username", email);
                     first.putExtras(extras);
                     startActivity(first);
 

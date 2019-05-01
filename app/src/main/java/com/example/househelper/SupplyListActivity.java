@@ -19,11 +19,17 @@ public class SupplyListActivity extends AppCompatActivity {
     private ArrayList<Supply> mSupplies;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    String household;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supply_list);
+
+
+        Intent intent = getIntent();
+        Bundle getExtras = intent.getExtras();
+        household = getExtras.getString("houseName");
 
 
         mSupplies = new ArrayList<>();

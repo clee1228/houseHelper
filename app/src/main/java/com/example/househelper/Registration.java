@@ -1,17 +1,13 @@
 package com.example.househelper;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
@@ -28,7 +24,7 @@ public class Registration extends AppCompatActivity {
 
 //        AnimateBell();
 
-        ImageView shop= (ImageView)findViewById(R.id.shopIcon);
+        ImageView shop= (ImageView)findViewById(R.id.dishsoap);
         Animation shopAni = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         shop.startAnimation(shopAni);
 
