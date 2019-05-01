@@ -82,7 +82,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         msgList = new ArrayList<Message>();
 
 
-        final DatabaseReference chats = database.getReference(household);
+        final DatabaseReference chats = database.getReference("Households").child(household).child("Chats");
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -167,7 +167,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         Message newMsg = new Message(msgInput, currUser.getDisplayName(), new Date(), timeStamp);
         msgList.add(newMsg);
 
-        DatabaseReference chats  = database.getReference(household);
+        DatabaseReference chats  = database.getReference("Households").child(household).child("Chats");
         String time = String.valueOf(new Date());
         DatabaseReference chat = chats.child(time);
         chat.child("user").setValue(currUser.getDisplayName());
