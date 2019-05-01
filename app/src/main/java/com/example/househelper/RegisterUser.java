@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +54,8 @@ public class RegisterUser extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
 
         Button registerButton = (Button) findViewById(R.id.loginButton);

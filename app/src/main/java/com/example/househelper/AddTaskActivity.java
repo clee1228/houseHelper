@@ -5,6 +5,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -16,6 +17,9 @@ public class AddTaskActivity extends AppCompatActivity {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
         Button addTaskButton = findViewById(R.id.submit_task_button);
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);

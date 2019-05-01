@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -61,6 +62,8 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
         setSupportActionBar(mToolbar);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

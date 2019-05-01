@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -34,6 +35,9 @@ public class TaskListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         setTitle("Tasks");
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
 
         Intent intent = getIntent();

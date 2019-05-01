@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,8 @@ public class AddSupplyActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         goBackButton = findViewById(R.id.back_button);
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override

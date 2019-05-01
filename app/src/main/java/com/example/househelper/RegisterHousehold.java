@@ -111,19 +111,10 @@ public class RegisterHousehold extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if (user != null) {
-//                        DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-//                        addUser.child("display").setValue(user.getDisplayName());
-//                        addUser.child("email").setValue(user.getEmail());
-//                        addUser.child("house").setValue(houseName);
-//
-//                        DatabaseReference addHousehold = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
-//                        addHousehold.child(user.getDisplayName()).setValue(user.getUid());
-
                         DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users").child(user.getUid());
                         addUser.child("display").setValue(user.getDisplayName());
                         addUser.child("email").setValue(user.getEmail());
                     }
-
 
 
                     loadingBar.setTitle("Welcome " + user.getDisplayName());
