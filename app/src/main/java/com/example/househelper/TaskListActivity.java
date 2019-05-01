@@ -17,8 +17,14 @@ import android.widget.RelativeLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class TaskListActivity extends AppCompatActivity {
 
@@ -26,9 +32,9 @@ public class TaskListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RelativeLayout layout;
     private ArrayList<User> mUsers;
+
     String username, household, displayname;
-
-
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,11 @@ public class TaskListActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
-
         Intent intent = getIntent();
-        Bundle getExtras = intent.getExtras();
-        household = getExtras.getString("houseName");
 
+        mDatabase = FirebaseDatabase.getInstance().getReference("Households");
+        username = intent.getStringExtra("username");
+        household = intent.getStringExtra("houseName");
 
         mUsers = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
@@ -104,6 +110,27 @@ public class TaskListActivity extends AppCompatActivity {
         createUsers();
         mAdapter = new TaskAdapter(this, this.mUsers);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void getUserData() {
+        DatabaseReference ref = mDatabase.child(household).child("Users");
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Map<String, Object> entries = (Map<String, Object>)dataSnapshot.getValue();
+                        for (Map.Entry<String, Object> entry : entries.entrySet()) {
+                            Map user = (Map) entry.getValue();
+//                            User newUser = new User(user.get(""))
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
     }
 
     // DUMMY DATA, DELETE LATER

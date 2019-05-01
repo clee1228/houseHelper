@@ -20,8 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="supply name"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="24dp"
+            android:layout_marginStart="27dp"
             android:typeface="sans" />
 
     </LinearLayout>
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="urgency"
+            android:layout_marginStart="27dp"
             android:textColor="@color/colorPrimary"
             android:textSize="16dp" />
 

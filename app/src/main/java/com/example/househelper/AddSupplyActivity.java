@@ -1,6 +1,7 @@
 package com.example.househelper;
 
 import android.content.Intent;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,51 +13,128 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Date;
+import java.util.UUID;
+
 public class AddSupplyActivity extends AppCompatActivity {
 
 
     ImageView goBackButton;
     Button submitButton;
-    EditText inputted_supply;
-    Spinner inputted_urgency;
+    private DatabaseReference dbRef;
+    String username, household;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_supply);
 
+        Intent intent = getIntent();
+        final Bundle extras = intent.getExtras();
+        household = extras.getString("houseName");
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        dbRef = db.getReference("Households/" + household + "/Supplies");
+
+        // Urgency spinner stuff.
         Spinner spinner = findViewById(R.id.supply_urgency);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.urgency_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
+        final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
+        final Intent SupplyListIntent = new Intent(this, SupplyListActivity.class);
+
+//        final Bundle newExtras = new Bundle();
+//        newExtras.putString("houseName",household);
+
+        BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
+        BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
+        BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
+
+
+        messageBoardLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageBoardIntent.putExtras(extras);
+                startActivity(MessageBoardIntent);
+            }
+        });
+
+        taskListLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskListLinkIntent.putExtras(extras);
+                startActivity(TaskListLinkIntent);
+            }
+        });
+
+        supplyListLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SupplyListIntent.putExtras(extras);
+                startActivity(SupplyListIntent);
+            }
+        });
+
 
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         goBackButton = findViewById(R.id.back_button);
+        submitButton = findViewById(R.id.submit_supply_button);
+
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent SupplyListIntent = new Intent(v.getContext(), SupplyListActivity.class);
+                final Bundle extras = new Bundle();
+                extras.putString("houseName",household);
+                SupplyListIntent.putExtras(extras);
                 startActivity(SupplyListIntent);
             }
         });
 
-        submitButton = findViewById(R.id.submit_supply_button);
-        inputted_supply = findViewById(R.id.supply_name);
-        inputted_urgency = findViewById(R.id.supply_urgency);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent SupplyListIntent = new Intent(v.getContext(), SupplyListActivity.class);
-                SupplyListIntent.putExtra("supply_name", inputted_supply.toString());
-                SupplyListIntent.putExtra("urgency", inputted_urgency.toString());
-                startActivity(SupplyListIntent);
+                submitSupply();
             }
         });
 
+        final EditText supplyNameEditText = findViewById(R.id.supply_name);
+        supplyNameEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                supplyNameEditText.setText("");
+            }
+        });
+
+
     }
+
+    public void submitSupply() {
+        EditText supplyNameField = findViewById(R.id.supply_name);
+        Spinner urgencySpinner = findViewById(R.id.supply_urgency);
+
+        String supplyName = supplyNameField.getText().toString();
+        String urgency = urgencySpinner.getSelectedItem().toString();
+
+        Supply toAdd = new Supply(supplyName, urgency);
+
+        DatabaseReference dbSupply = dbRef.child(supplyName);
+        dbSupply.child("name").setValue(supplyName);
+        dbSupply.child("urgency").setValue(urgency);
+
+        final Intent goBackToSupplies = new Intent(this, SupplyListActivity.class);
+        final Bundle extras = new Bundle();
+        extras.putString("houseName",household);
+        goBackToSupplies.putExtras(extras);
+        startActivity(goBackToSupplies);
+    }
+
+
 }

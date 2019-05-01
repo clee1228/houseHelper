@@ -6,13 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SupplyListActivity extends AppCompatActivity {
 
@@ -21,12 +29,18 @@ public class SupplyListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     String household;
+    DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supply_list);
 
+        mRecyclerView = findViewById(R.id.supply_recycler);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mSupplies = new ArrayList<>();
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -35,43 +49,69 @@ public class SupplyListActivity extends AppCompatActivity {
         Bundle getExtras = intent.getExtras();
         household = getExtras.getString("houseName");
 
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        dbRef = db.getReference("Households/" + household + "/Supplies");
 
-        mSupplies = new ArrayList<>();
+        ValueEventListener myDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Set a breakpoint in this method and run in debug mode!!
+                // this will be called each time `bearRef` or one of its children is modified
+                Iterable<DataSnapshot> suppliesData = dataSnapshot.getChildren();
+                for (DataSnapshot supply : suppliesData) {
+                    HashMap<String, String> supplyMap = (HashMap<String, String>) supply.getValue();
+                    Supply loadedSupply = new Supply(supplyMap.get("name"),
+                            supplyMap.get("urgency"));
+                    mSupplies.add(loadedSupply);
+                }
+                setAdapterAndUpdateData();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("0", "cancelled");
+            }
+        };
+
+        dbRef.addValueEventListener(myDataListener);
+        setAdapterAndUpdateData();
 
         setButtonOnClicks();
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.supply_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        setAdapterAndUpdateData();
 
     }
 
     private void setButtonOnClicks() {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
+        BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
+        addSupplyButton = findViewById(R.id.add_supply_button);
+
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
+        final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
+        final Intent AddSupplyIntent = new Intent(this, AddSupplyActivity.class);
+
+        final Bundle extras = new Bundle();
+        extras.putString("houseName",household);
+
+
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(MessageBoardIntent);
+                MessageBoardIntent.putExtras(extras);
+                startActivity(MessageBoardIntent);
             }
         });
 
-        BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
-        final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
         taskListLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(TaskListLinkIntent);
+                TaskListLinkIntent.putExtras(extras);
+                startActivity(TaskListLinkIntent);
             }
         });
 
-        addSupplyButton = findViewById(R.id.add_supply_button);
         addSupplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent AddSupplyIntent = new Intent(v.getContext(), AddSupplyActivity.class);
+                AddSupplyIntent.putExtras(extras);
                 startActivity(AddSupplyIntent);
             }
         });
@@ -80,14 +120,8 @@ public class SupplyListActivity extends AppCompatActivity {
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
-        createSupplies();
-        mAdapter = new SupplyAdapter(this, this.mSupplies);
+        mAdapter = new SupplyAdapter(this, mSupplies);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    // DUMMY DATA, DELETE LATER
-    private void createSupplies() {
-        this.mSupplies.add(new Supply("toilet paper", "high"));
-        this.mSupplies.add(new Supply("dish liquid", "medium"));
-    }
 }
