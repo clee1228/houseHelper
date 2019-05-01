@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddTaskActivity">
@@ -10,7 +11,7 @@
         android:id="@+id/frequency_spinner"
         android:layout_width="181dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/task_name_field2"
+        android:layout_alignBottom="@+id/task_name_field"
         android:layout_alignParentStart="true"
         android:layout_marginStart="38dp"
         android:layout_marginBottom="-91dp"
@@ -31,7 +32,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/task_name_field2"
+        android:id="@+id/task_name_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -63,13 +64,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#4B698B"
-        app:titleTextColor="#fff"
+        android:elevation="4dp"
         app:title="Add Task to Rotation"
-        android:elevation="4dp"/>
+        app:titleTextColor="#fff" />
 
 
     <Spinner
-        android:id="@+id/task_difficulty_field"
+        android:id="@+id/difficulty_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -92,10 +93,10 @@
         android:background="@color/colorPrimary"
         android:itemBackground="@color/colorPrimary"
         app:itemIconTint="#fff"
-        app:itemTextColor="#fff"
-        app:labelVisibilityMode="labeled"
         app:itemTextAppearanceActive="@style/BottomNavigationView"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        app:itemTextColor="#fff"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
