@@ -58,7 +58,6 @@ public class MessageBoardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         household = extras.getString("houseName");
-        Log.d("household MSG BOARD= ", household);
 
         layout = (RelativeLayout) findViewById(R.id.chat_layout);
         message = (EditText) layout.findViewById(R.id.input_msg);
@@ -72,9 +71,6 @@ public class MessageBoardActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickForSendButton();
-
-        /* erase later */
-//        makeTestMsgs();
 
         msgList = new ArrayList<Message>();
 

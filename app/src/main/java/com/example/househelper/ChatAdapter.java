@@ -2,6 +2,7 @@ package com.example.househelper;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(mChats.get(position).getUsername() == user.getDisplayName()) {
+            Log.d("Chat username = ", mChats.get(position).getUsername());
+            Log.d("Curr Display Name = ", user.getDisplayName());
             return 1;
         } else {
             return 2;
