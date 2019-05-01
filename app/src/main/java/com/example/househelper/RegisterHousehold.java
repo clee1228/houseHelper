@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -114,6 +115,9 @@ public class RegisterHousehold extends AppCompatActivity {
                         addUser.child("display").setValue(user.getDisplayName());
                         addUser.child("email").setValue(user.getEmail());
                         addUser.child("house").setValue(houseName);
+
+                        DatabaseReference addHousehold = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
+                        addHousehold.child(user.getDisplayName()).setValue(user.getUid());
                     }
 
 
@@ -159,6 +163,11 @@ public class RegisterHousehold extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                            user.updateProfile(profileUpdates);
+
+
                             Toast.makeText(RegisterHousehold.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
                             loadingBar.setTitle("Account Created Successfully");
@@ -166,9 +175,8 @@ public class RegisterHousehold extends AppCompatActivity {
                             loadingBar.setCanceledOnTouchOutside(true);
                             loadingBar.show();
 
-                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
-//                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                            addUser.child(name).setValue(user.getUid());
+
+
 
                             login(email, pass);
 

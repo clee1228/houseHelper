@@ -29,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 public class RegisterUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
     private EditText emailInput, username, password, household;
     private ProgressDialog loadingBar;
     String email, pass, houseName, name;
@@ -48,16 +47,12 @@ public class RegisterUser extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.registerHouseToolbar);
         setSupportActionBar(mToolbar);
-
-
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-
 
 
         Button registerButton = (Button) findViewById(R.id.loginButton);
@@ -104,8 +99,6 @@ public class RegisterUser extends AppCompatActivity {
             return;
         }
 
-        email = username;
-
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -118,8 +111,10 @@ public class RegisterUser extends AppCompatActivity {
                         addUser.child("display").setValue(user.getDisplayName());
                         addUser.child("email").setValue(user.getEmail());
                         addUser.child("house").setValue(houseName);
-                    }
 
+                        DatabaseReference addUserToHousehold = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
+                        addUserToHousehold.child(user.getDisplayName()).setValue(user.getUid());
+                    }
 
 
                     loadingBar.setTitle("Welcome " + user.getDisplayName());
@@ -164,10 +159,8 @@ public class RegisterUser extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("NAME =", name);
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                             user.updateProfile(profileUpdates);
-
 
 
                             Toast.makeText(RegisterUser.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
@@ -178,9 +171,7 @@ public class RegisterUser extends AppCompatActivity {
                             loadingBar.show();
 
 
-//                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference(houseName).child("Users");
-//                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                            addUser.child(name).setValue(user.getUid());
+//
 
                             login(email, pass);
 
