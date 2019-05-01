@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,9 +30,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // UI references.
     private FirebaseAuth mAuth;
-    private EditText username, password;
+    private EditText username, password, household;
     private ProgressDialog loadingBar;
-    String email, pass;
+    String email, pass, houseName;
 
 
     @Override
@@ -39,7 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        username = findViewById(R.id.household);
+        household = findViewById(R.id.household);
+        username = findViewById(R.id.email);
         password = (EditText) findViewById(R.id.pw);
 
         findViewById(R.id.createUser).setOnClickListener(this);
@@ -55,23 +57,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         String user = username.getText().toString();
         String pass = password.getText().toString();
+        String houseName = household.getText().toString();
+
         if(i == R.id.registerLink) {
             final Intent goToRegistration = new Intent(this, Registration.class);
+
             startActivity(goToRegistration);
             Animatoo.animateSwipeLeft(LoginActivity.this);
 
 
         } else if(i == R.id.createUser) {
-            login(user, pass);
+            login(user, pass, houseName);
         }
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password, String house) {
         if (!validateForm()){
             return;
         }
 
         email = username;
+        houseName = house;
 
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -81,7 +87,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
                     Intent first = new Intent(LoginActivity.this, TaskListActivity.class);
-                    first.putExtra("username", email);
+                    Bundle extras = new Bundle();
+                    extras.putString("houseName",houseName);
+                    extras.putString("username", email);
+                    first.putExtras(extras);
                     startActivity(first);
 
 

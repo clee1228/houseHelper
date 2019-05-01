@@ -22,7 +22,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.chat_cell_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.rcv_msgs, parent, false);
         return new ChatViewHolder(view);
     }
 
@@ -52,15 +52,15 @@ class ChatViewHolder extends RecyclerView.ViewHolder {
 
     public ChatViewHolder(View itemView) {
         super(itemView);
-        mCommentBubbleLayout = itemView.findViewById(R.id.chat_cell_layout);
-        mUsernameTextView = mCommentBubbleLayout.findViewById(R.id.username_text_view);
-        mDateTextView = mCommentBubbleLayout.findViewById(R.id.date_text_view);
-        mMsgTextView = mCommentBubbleLayout.findViewById(R.id.chat_text_view);
+        mCommentBubbleLayout = itemView.findViewById(R.id.rcv_msgs);
+        mUsernameTextView = mCommentBubbleLayout.findViewById(R.id.username);
+//        mDateTextView = mCommentBubbleLayout.findViewById(R.id.date_text_view);
+        mMsgTextView = mCommentBubbleLayout.findViewById(R.id.message_body);
     }
 
     void bind(Message msg) {
         mUsernameTextView.setText(msg.user);
-        mDateTextView.setText("posted " + msg.elapsedTimeString() + " ago");
+//        mDateTextView.setText("posted " + msg.elapsedTimeString() + " ago");
         mMsgTextView.setText(msg.text);
     }
 }

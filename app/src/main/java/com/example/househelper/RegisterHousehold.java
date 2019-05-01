@@ -34,7 +34,7 @@ public class RegisterHousehold extends AppCompatActivity {
         setContentView(R.layout.activity_register_household);
 
         household = (EditText) findViewById(R.id.householdName);
-        username = (EditText) findViewById(R.id.name);
+        username = (EditText) findViewById(R.id.username);
         emailInput = (EditText) findViewById(R.id.email1);
         password = (EditText) findViewById(R.id.pw);
 
@@ -73,9 +73,13 @@ public class RegisterHousehold extends AppCompatActivity {
                     loadingBar.setTitle("Welcome, " + email);
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
-                    Intent first = new Intent(RegisterHousehold.this, TaskListActivity.class);
-                    first.putExtra("username", email);
-                    startActivity(first);
+                    Intent i = new Intent(RegisterHousehold.this, TaskListActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("houseName",houseName);
+                    extras.putString("username", name);
+                    i.putExtras(extras);
+                    startActivity(i);
+                    Animatoo.animateSwipeLeft(RegisterHousehold.this);
 
 
                 } else {
@@ -92,7 +96,7 @@ public class RegisterHousehold extends AppCompatActivity {
             return;
         }
         loadingBar.setTitle("Creating New Household & Account");
-        loadingBar.setMessage("Please wait.s.. ");
+        loadingBar.setMessage("Please wait... ");
         loadingBar.setCanceledOnTouchOutside(true);
         loadingBar.show();
 
@@ -113,17 +117,15 @@ public class RegisterHousehold extends AppCompatActivity {
                             loadingBar.setMessage("Now logging into your account");
                             loadingBar.setCanceledOnTouchOutside(true);
                             loadingBar.show();
+
+                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
+//                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                            addUser.child(name).setValue(user.getUid());
+
                             login(email, pass);
 
 
-                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            addUser.child(name).setValue(user.getUid());
-//                            goToTaskList.putExtra("username", email);
 
-                            Intent goToTaskList = new Intent(RegisterHousehold.this, TaskListActivity.class);
-                            startActivity(goToTaskList);
-                            Animatoo.animateSwipeLeft(RegisterHousehold.this);
 
 
                         } else {

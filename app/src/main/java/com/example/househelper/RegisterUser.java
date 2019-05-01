@@ -33,7 +33,7 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         household = (EditText) findViewById(R.id.household);
-        username = (EditText) findViewById(R.id.name);
+        username = (EditText) findViewById(R.id.username);
         emailInput = (EditText) findViewById(R.id.register_email);
         password = (EditText) findViewById(R.id.pw);
 
@@ -72,9 +72,13 @@ public class RegisterUser extends AppCompatActivity {
                     loadingBar.setTitle("Welcome, " + email);
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
-                    Intent first = new Intent(RegisterUser.this, TaskListActivity.class);
-                    first.putExtra("username", email);
-                    startActivity(first);
+                    Intent i = new Intent(RegisterUser.this, TaskListActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("houseName",houseName);
+                    extras.putString("username", name);
+                    i.putExtras(extras);
+                    startActivity(i);
+                    Animatoo.animateSwipeLeft(RegisterUser.this);
 
 
                 } else {
@@ -112,17 +116,16 @@ public class RegisterUser extends AppCompatActivity {
                             loadingBar.setMessage("Now logging into your account");
                             loadingBar.setCanceledOnTouchOutside(true);
                             loadingBar.show();
+
+
+//                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference(houseName).child("Users");
+//                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                            addUser.child(name).setValue(user.getUid());
+
                             login(email, pass);
 
 
-                            DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            addUser.child(name).setValue(user.getUid());
-//                            goToTaskList.putExtra("username", email);
-
-                            Intent goToTaskList = new Intent(RegisterUser.this, TaskListActivity.class);
-                            startActivity(goToTaskList);
-                            Animatoo.animateSwipeLeft(RegisterUser.this);
+//
 
 
                         } else {
