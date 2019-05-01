@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,10 +18,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     /*** Id to identity READ_CONTACTS permission request.*/
@@ -44,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         username = findViewById(R.id.email);
         password = (EditText) findViewById(R.id.pw);
 
-        findViewById(R.id.createUser).setOnClickListener(this);
+        findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.registerLink).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,30 +65,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Animatoo.animateSwipeLeft(LoginActivity.this);
 
 
-        } else if(i == R.id.createUser) {
+        } else if(i == R.id.loginButton) {
             login(user, pass, houseName);
         }
     }
 
-    private void login(String username, String password, String house) {
+    private void login(String userEmail, String password, String house) {
         if (!validateForm()){
             return;
         }
 
-        email = username;
+        email = userEmail;
         houseName = house;
 
-        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(userEmail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    loadingBar.setTitle("Welcome, " + email);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    loadingBar.setTitle("Welcome " + user.getDisplayName());
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
                     Intent first = new Intent(LoginActivity.this, TaskListActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("houseName",houseName);
-                    extras.putString("username", email);
                     first.putExtras(extras);
                     startActivity(first);
 
@@ -102,45 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-//    private void registerUser(String un, String pw) {
-//
-//
-//        if(!validateForm()) {
-//            return;
-//        }
-//        loadingBar.setTitle("Creating New Account");
-//        loadingBar.setMessage("Please wait, while we are creating your account.. ");
-//        loadingBar.setCanceledOnTouchOutside(true);
-//        loadingBar.show();
-//
-//        email = un;
-//        pass = pw;
-//
-//        mAuth.createUserWithEmailAndPassword(un, pw)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(LoginActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
-//                            loadingBar.dismiss();
-//                            loadingBar.setTitle("Account Created Successfully");
-//                            loadingBar.setMessage("Now logging into your account");
-//                            loadingBar.setCanceledOnTouchOutside(true);
-//                            loadingBar.show();
-//                            login(email, pass);
-//                            Intent first = new Intent(LoginActivity.this, TaskListActivity.class);
-//                            first.putExtra("username", email);
-//                            startActivity(first);
-//
-//                        } else {
-//                            String msg = task.getException().toString();
-//                            Toast.makeText(LoginActivity.this, "Error: " + msg, Toast.LENGTH_SHORT).show();
-//                            loadingBar.dismiss();
-//
-//                        }
-//                    }
-//                });
-//    }
 
     private boolean validateForm() {
         boolean valid = true;
@@ -164,30 +124,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         return valid;
     }
-
-
-//        final Intent goToTasks = new Intent(this, TaskListActivity.class);
-
-//        loginButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                attemptLogin();
-//                startActivity(goToTasks);
-//            }
-//        });
-//
-//        TextView register = (TextView) findViewById(R.id.registerLink);
-//        final Intent goToRegistration = new Intent(this, Registration.class);
-//        register.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(goToRegistration);
-//                Animatoo.animateSwipeLeft(LoginActivity.this);
-//            }
-//        });
-
-
-
 
 
 }

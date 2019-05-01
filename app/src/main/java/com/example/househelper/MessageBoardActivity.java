@@ -2,15 +2,12 @@ package com.example.househelper;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,22 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
+
 
 public class MessageBoardActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<Message> msgList = new ArrayList<Message>();
-    private ArrayList<Message> sentMsgs = new ArrayList<Message>();
     public HashMap<String, String> messages;
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     RelativeLayout layout;
     EditText message;
     Button sendButton;
     Toolbar mToolbar;
-    String username, household;
+    String household;
 
 
     @Override
@@ -54,28 +53,33 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        username = extras.getString("username");
         household = extras.getString("houseName");
-        Log.d("household MSG BOARD= ", household);
 
         layout = (RelativeLayout) findViewById(R.id.chat_layout);
         message = (EditText) layout.findViewById(R.id.input_msg);
         sendButton = (Button) layout.findViewById(R.id.send_button);
 
-        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
         setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickForSendButton();
 
-        /* erase later */
-//        makeTestMsgs();
-
         msgList = new ArrayList<Message>();
-
 
 
         final DatabaseReference chats = database.getReference(household);
@@ -89,17 +93,11 @@ public class MessageBoardActivity extends AppCompatActivity {
                     Date date = getDate(s);
                     String message = ds.child("message").getValue(String.class);
                     String user = ds.child("user").getValue(String.class);
-                    if (user == username) {
-                        Message newMsg = new Message(message, user, date);
-                        sentMsgs.add(newMsg);
+                    String time = ds.child("time").getValue(String.class);
+                    Message newMsg = new Message(message, user, date, time);
 
-                    } else{
-                        Message newMsg = new Message(message, user, date);
-                        msgList.add(newMsg);
-
-                    }
+                    msgList.add(newMsg);
                 }
-
 
                 setAdapterAndUpdateData();
             }
@@ -112,6 +110,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
     }
+
 
 
     private void setOnClickForSendButton() {
@@ -131,7 +130,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         });
     }
 
-     public Date getDate(String s){
+    public Date getDate(String s){
         Date date = null;
         try {
             date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
@@ -160,17 +159,23 @@ public class MessageBoardActivity extends AppCompatActivity {
 
     private void postNewComment(String msgInput) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Message newMsg = new Message(msgInput, username, new Date());
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar now = Calendar.getInstance();
+        String timeStamp = (now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
+
+        Message newMsg = new Message(msgInput, currUser.getDisplayName(), new Date(), timeStamp);
         msgList.add(newMsg);
 
         DatabaseReference chats  = database.getReference(household);
         String time = String.valueOf(new Date());
         DatabaseReference chat = chats.child(time);
-        chat.child("user").setValue(username);
+        chat.child("user").setValue(currUser.getDisplayName());
         chat.child("message").setValue(msgInput);
+        chat.child("time").setValue(timeStamp);
         setAdapterAndUpdateData();
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

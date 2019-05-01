@@ -34,15 +34,6 @@
             android:paddingTop="56dp"
             android:paddingRight="24dp">
 
-            <!-- App Icon -->
-
-
-            <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="72dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginBottom="24dp"-->
-            <!--android:src="@drawable/app_icon" />-->
 
             <LinearLayout
                 android:layout_width="353dp"
@@ -62,7 +53,7 @@
                     android:src="@drawable/test" />
 
                 <ImageView
-                    android:id="@+id/shopIcon"
+                    android:id="@+id/dishsoap"
                     android:layout_width="95dp"
                     android:layout_height="95dp"
                     android:layout_gravity="center_horizontal"

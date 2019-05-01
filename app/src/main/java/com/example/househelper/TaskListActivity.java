@@ -1,6 +1,7 @@
 package com.example.househelper;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class TaskListActivity extends AppCompatActivity {
@@ -20,7 +25,9 @@ public class TaskListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RelativeLayout layout;
     private ArrayList<User> mUsers;
-    String username, household;
+    String username, household, displayname;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +35,9 @@ public class TaskListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         setTitle("Tasks");
 
+
         Intent intent = getIntent();
         Bundle getExtras = intent.getExtras();
-        username = getExtras.getString("username");
         household = getExtras.getString("houseName");
 
 
@@ -48,7 +55,7 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
-        extras.putString("username", username);
+
 
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {

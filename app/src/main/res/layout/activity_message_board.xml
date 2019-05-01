@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,25 +9,26 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
+        android:id="@+id/msgToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#4B698B"
         app:titleTextColor="#fff"
         app:title="Group Chat"
-        android:elevation="4dp"
-        android:theme="@style/EditTextTheme"/>
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+        app:navigationIcon="@drawable/back_arrow"
+        app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title."
+        android:elevation="4dp" />
+
 
     <!-- recylcer view -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_recycler"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/llSend"
+        android:layout_below="@+id/registerHouseToolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:transcriptMode="alwaysScroll"
         app:stackFromEnd="true" />
 
@@ -73,10 +73,6 @@
 
 
     </RelativeLayout>
-
-
-
-
 </RelativeLayout>
 
 
