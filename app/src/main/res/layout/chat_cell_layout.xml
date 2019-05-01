@@ -2,6 +2,7 @@
 
 <!-- layout file for a single cell in the comment recycler view -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chat_cell_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -32,12 +33,6 @@
             android:textStyle="bold" />
 
         <!-- time elapsed text view -->
-        <TextView
-            android:id="@+id/date_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:text="4 hours ago" />
     </LinearLayout>
 
     <!-- comment body text -->
@@ -50,4 +45,5 @@
         android:paddingTop="8dp"
         android:text="this is some text that previews what a comments text would look like"
         android:textSize="16sp" />
+
 </RelativeLayout>

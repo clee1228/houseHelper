@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,12 +20,19 @@ public class TaskListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RelativeLayout layout;
     private ArrayList<User> mUsers;
+    String username, household;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         setTitle("Tasks");
+
+        Intent intent = getIntent();
+        Bundle getExtras = intent.getExtras();
+        username = getExtras.getString("username");
+        household = getExtras.getString("houseName");
+
 
         mUsers = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
@@ -38,23 +46,30 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
         final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
+        final Bundle extras = new Bundle();
+        extras.putString("houseName",household);
+        extras.putString("username", username);
 
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                goToMessageBoard.putExtras(extras);
                 startActivity(goToMessageBoard);
             }
         });
         supplyListLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToSupplyList.putExtras(extras);
                 startActivity(goToSupplyList);
             }
         });
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToAddTask.putExtras(extras);
                 startActivity(goToAddTask);
             }
         });

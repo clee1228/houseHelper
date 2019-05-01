@@ -41,7 +41,6 @@
                 android:layout_marginBottom="24dp"
                 android:layout_gravity="center_horizontal" />
 
-
             <!-- Email Input -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -52,11 +51,29 @@
                     android:id="@+id/household"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="Household Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:theme="@style/EditTextTheme" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!-- Email Input -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextTheme">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-mail"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:theme="@style/EditTextTheme"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:theme="@style/EditTextTheme" />
 
             </android.support.design.widget.TextInputLayout>
 

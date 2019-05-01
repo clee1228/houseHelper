@@ -17,18 +17,32 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MessageBoardActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<Message> msgList = new ArrayList<Message>();
+    private ArrayList<Message> sentMsgs = new ArrayList<Message>();
+    public HashMap<String, String> messages;
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
     RelativeLayout layout;
     EditText message;
     Button sendButton;
     Toolbar mToolbar;
+    String username, household;
 
 
     @Override
@@ -37,6 +51,12 @@ public class MessageBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message_board);
 
         setTitle("Group Chat");
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        username = extras.getString("username");
+        household = extras.getString("houseName");
+        Log.d("household MSG BOARD= ", household);
 
         layout = (RelativeLayout) findViewById(R.id.chat_layout);
         message = (EditText) layout.findViewById(R.id.input_msg);
@@ -50,20 +70,49 @@ public class MessageBoardActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickForSendButton();
-        makeTestMsgs();
+
+        /* erase later */
+//        makeTestMsgs();
+
+        msgList = new ArrayList<Message>();
+
+
+
+        final DatabaseReference chats = database.getReference(household);
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                msgList = new ArrayList<Message>();
+                messages = (HashMap<String, String>) dataSnapshot.getValue();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String s = ds.getKey();
+                    Date date = getDate(s);
+                    String message = ds.child("message").getValue(String.class);
+                    String user = ds.child("user").getValue(String.class);
+                    if (user == username) {
+                        Message newMsg = new Message(message, user, date);
+                        sentMsgs.add(newMsg);
+
+                    } else{
+                        Message newMsg = new Message(message, user, date);
+                        msgList.add(newMsg);
+
+                    }
+                }
+
+
+                setAdapterAndUpdateData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+
+        chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
-
-
     }
 
-
-    private void makeTestMsgs() {
-        String randomString = "hello everyone ";
-        Message newMsg = new Message(randomString, "test_user1", new Date());
-        Message hourAgoMsg = new Message("hey", "test_user2", new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
-        Message overHourMsg = new Message("whats up", "test_user3", new Date(System.currentTimeMillis() - (2 * 60 * 60 * 1000)));
-        msgList.add(newMsg);msgList.add(hourAgoMsg); msgList.add(overHourMsg);
-    }
 
     private void setOnClickForSendButton() {
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +131,18 @@ public class MessageBoardActivity extends AppCompatActivity {
         });
     }
 
+     public Date getDate(String s){
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+
+    }
+
+
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
@@ -89,12 +150,25 @@ public class MessageBoardActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         // scroll to the last comment
-        mRecyclerView.smoothScrollToPosition(msgList.size() - 1);
+        if (msgList.size() == 0) {
+            mRecyclerView.smoothScrollToPosition(0);
+        } else {
+            mRecyclerView.smoothScrollToPosition(msgList.size() - 1);
+        }
+
     }
 
-    private void postNewComment(String commentText) {
-        Message newMsg = new Message(commentText, "one-sixty student", new Date());
+    private void postNewComment(String msgInput) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Message newMsg = new Message(msgInput, username, new Date());
         msgList.add(newMsg);
+
+        DatabaseReference chats  = database.getReference(household);
+        String time = String.valueOf(new Date());
+        DatabaseReference chat = chats.child(time);
+        chat.child("user").setValue(username);
+        chat.child("message").setValue(msgInput);
         setAdapterAndUpdateData();
     }
 
