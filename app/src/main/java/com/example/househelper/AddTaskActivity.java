@@ -14,8 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    private String household;
     private DatabaseReference mDatabase;
+    String username, household;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,11 @@ public class AddTaskActivity extends AppCompatActivity {
         final Intent goToTasks = new Intent(this, TaskListActivity.class);
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
-        final Intent goBackToTasks = new Intent(this, TaskListActivity.class);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        username = extras.getString("username");
+        household = extras.getString("houseName");
 
         taskListLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,11 +58,9 @@ public class AddTaskActivity extends AppCompatActivity {
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(goBackToTasks);
+                submitTask();
             }
         });
-
-        this.household = "MyHouse"; //TODO: get this info from login
     }
 
     public void submitTask() {
@@ -68,10 +70,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
         String taskName = taskNameField.getText().toString();
         String frequency = frequencySpinner.getSelectedItem().toString();
-        int difficulty = Integer.parseInt(difficultySpinner.getSelectedItem().toString());
+        String difficulty = difficultySpinner.getSelectedItem().toString();
 
         Task toAdd = new Task(taskName, difficulty, frequency);
         mDatabase.child(this.household).child("Tasks").child(taskName).setValue(toAdd);
+
+        final Intent goBackToTasks = new Intent(this, TaskListActivity.class);
+        startActivity(goBackToTasks);
     }
 
 
