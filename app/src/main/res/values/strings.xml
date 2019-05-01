@@ -24,4 +24,17 @@
     <string name="title_activity_register_new_household">RegisterNewHousehold</string>
     <string name="title_activity_register_household">RegisterHousehold</string>
     <string name="title_activity_register_user">RegisterUser</string>
+    <string name="title_activity_user_profile">UserProfile</string>
+    <string name="action_settings">Settings</string>
+
+    /** user profile **/
+    <string name="hello_world">Hello world!</string>
+    <string name="imgdesc">imgdesc</string>
+
+    <string-array name="Profile">
+        <item>Name</item>
+        <item>Email</item>
+        <item>Change Password</item>
+        <item>Sign Out</item>
+    </string-array>
 </resources>

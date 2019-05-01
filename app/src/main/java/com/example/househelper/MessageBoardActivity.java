@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-
 public class MessageBoardActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -72,8 +71,6 @@ public class MessageBoardActivity extends AppCompatActivity {
             }
         });
 
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemViewCacheSize(20);
@@ -113,8 +110,6 @@ public class MessageBoardActivity extends AppCompatActivity {
         chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
     }
-
-
 
     private void setOnClickForSendButton() {
         sendButton.setOnClickListener(new View.OnClickListener() {

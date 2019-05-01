@@ -52,11 +52,13 @@ public class TaskListActivity extends AppCompatActivity {
 
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
+        BottomNavigationItemView profileLink = findViewById(R.id.profile);
         Button addTaskButton = findViewById(R.id.add_task_button);
 
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
         final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
+        final Intent goToProfile = new Intent(this, UserProfile.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
 
@@ -82,6 +84,14 @@ public class TaskListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 goToAddTask.putExtras(extras);
                 startActivity(goToAddTask);
+            }
+        });
+
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfile.putExtras(extras);
+                startActivity(goToProfile);
             }
         });
 

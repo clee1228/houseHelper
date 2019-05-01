@@ -26,7 +26,7 @@ public class Registration extends AppCompatActivity {
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         myImageView.startAnimation(myFadeInAnimation);
 
-//        AnimateBell();
+
 
         ImageView shop= (ImageView)findViewById(R.id.dishsoap);
         Animation shopAni = AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -36,6 +36,8 @@ public class Registration extends AppCompatActivity {
         ImageView chat= (ImageView)findViewById(R.id.chatIcon);
         Animation chatAni = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         chat.startAnimation(chatAni);
+
+        //        AnimateBell();
 
 
         Button createHousehold = (Button) findViewById(R.id.createNewHousehold);
@@ -64,9 +66,9 @@ public class Registration extends AppCompatActivity {
 
     }
 
-    public void AnimateBell() {
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        ImageView imgBell= (ImageView) findViewById(R.id.listIcon);
-        imgBell.setAnimation(shake);
-    }
+//    public void AnimateBell() {
+//        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+//        ImageView imgBell= (ImageView) findViewById(R.id.listIcon);
+//        imgBell.setAnimation(shake);
+//    }
 }
