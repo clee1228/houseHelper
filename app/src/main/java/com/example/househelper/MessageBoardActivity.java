@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
 
 
 public class MessageBoardActivity extends AppCompatActivity {
@@ -61,6 +61,8 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
         setSupportActionBar(mToolbar);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +70,6 @@ public class MessageBoardActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -110,8 +110,6 @@ public class MessageBoardActivity extends AppCompatActivity {
         chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
     }
-
-
 
     private void setOnClickForSendButton() {
         sendButton.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,9 @@ public class AddTaskActivity extends AppCompatActivity {
         Button addTaskButton = findViewById(R.id.submit_task_button);
 
         final Intent goToTasks = new Intent(this, TaskListActivity.class);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
 

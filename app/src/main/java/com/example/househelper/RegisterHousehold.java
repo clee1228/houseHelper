@@ -43,14 +43,12 @@ public class RegisterHousehold extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.registerHouseToolbar);
         setSupportActionBar(mToolbar);
 
-
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
 
         household = (EditText) findViewById(R.id.householdName);
         username = (EditText) findViewById(R.id.firstName);
@@ -76,7 +74,7 @@ public class RegisterHousehold extends AppCompatActivity {
                             String user = username.getText().toString();
                             registerUser(house, user, mail, pw);
                         } else{
-                            Toast.makeText(RegisterHousehold.this, "This household already exists", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterHousehold.this, "This household name is already in use", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -93,7 +91,6 @@ public class RegisterHousehold extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-
         loadingBar = new ProgressDialog(this);
     }
 
@@ -111,19 +108,10 @@ public class RegisterHousehold extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if (user != null) {
-//                        DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-//                        addUser.child("display").setValue(user.getDisplayName());
-//                        addUser.child("email").setValue(user.getEmail());
-//                        addUser.child("house").setValue(houseName);
-//
-//                        DatabaseReference addHousehold = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users");
-//                        addHousehold.child(user.getDisplayName()).setValue(user.getUid());
-
                         DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users").child(user.getUid());
                         addUser.child("display").setValue(user.getDisplayName());
                         addUser.child("email").setValue(user.getEmail());
                     }
-
 
 
                     loadingBar.setTitle("Welcome " + user.getDisplayName());
@@ -161,7 +149,6 @@ public class RegisterHousehold extends AppCompatActivity {
         houseName = house;
         name = user;
 
-
         mAuth.createUserWithEmailAndPassword(mail, pw)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -179,15 +166,7 @@ public class RegisterHousehold extends AppCompatActivity {
                             loadingBar.setCanceledOnTouchOutside(true);
                             loadingBar.show();
 
-
-
-
                             login(email, pass);
-
-
-
-
-
                         } else {
                             String msg = task.getException().toString();
                             Toast.makeText(RegisterHousehold.this, "Error: " + msg, Toast.LENGTH_SHORT).show();

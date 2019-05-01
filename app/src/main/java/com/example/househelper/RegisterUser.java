@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +54,8 @@ public class RegisterUser extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
 
         Button registerButton = (Button) findViewById(R.id.loginButton);
@@ -107,10 +110,6 @@ public class RegisterUser extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if (user != null) {
-//                        DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-//                        addUser.child("display").setValue(user.getDisplayName());
-//                        addUser.child("email").setValue(user.getEmail());
-//                        addUser.child("house").setValue(houseName);
 
                         DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users").child(user.getUid());
                         addUser.child("display").setValue(user.getDisplayName());
@@ -153,7 +152,6 @@ public class RegisterUser extends AppCompatActivity {
         houseName = house;
         name = user;
 
-
         mAuth.createUserWithEmailAndPassword(mail, pw)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -171,14 +169,7 @@ public class RegisterUser extends AppCompatActivity {
                             loadingBar.setCanceledOnTouchOutside(true);
                             loadingBar.show();
 
-
-//
-
                             login(email, pass);
-
-
-//
-
 
                         } else {
                             String msg = task.getException().toString();

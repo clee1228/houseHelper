@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private EditText username, password, household;
     private ProgressDialog loadingBar;
-    String email, pass, houseName;
+    String email, houseName;
 
 
     @Override
@@ -46,6 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.registerLink).setOnClickListener(this);
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -65,11 +69,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(goToRegistration);
             Animatoo.animateSwipeLeft(LoginActivity.this);
 
-
         } else if(i == R.id.loginButton) {
             login(user, pass, houseName);
         }
     }
+
 
     private void login(String userEmail, String password, String house) {
         if (!validateForm()){
