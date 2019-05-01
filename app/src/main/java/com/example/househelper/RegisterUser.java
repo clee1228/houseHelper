@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     private EditText emailInput, username, password, household;
     private ProgressDialog loadingBar;
     String email, pass, houseName, name;
@@ -33,12 +36,12 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         household = (EditText) findViewById(R.id.household);
-        username = (EditText) findViewById(R.id.username);
+        username = (EditText) findViewById(R.id.firstName);
         emailInput = (EditText) findViewById(R.id.register_email);
         password = (EditText) findViewById(R.id.pw);
 
 
-        Button registerButton = (Button) findViewById(R.id.createUser);
+        Button registerButton = (Button) findViewById(R.id.loginButton);
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -69,7 +72,19 @@ public class RegisterUser extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    loadingBar.setTitle("Welcome, " + email);
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (user != null) {
+                        DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+                        addUser.child("display").setValue(user.getDisplayName());
+                        addUser.child("email").setValue(user.getEmail());
+                        addUser.child("house").setValue(houseName);
+                    }
+
+
+
+                    loadingBar.setTitle("Welcome " + user.getDisplayName());
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
                     Intent i = new Intent(RegisterUser.this, TaskListActivity.class);
@@ -110,6 +125,13 @@ public class RegisterUser extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("NAME =", name);
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                            user.updateProfile(profileUpdates);
+
+
+
                             Toast.makeText(RegisterUser.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
                             loadingBar.setTitle("Account Created Successfully");

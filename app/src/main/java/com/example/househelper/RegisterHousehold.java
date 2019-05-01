@@ -34,12 +34,12 @@ public class RegisterHousehold extends AppCompatActivity {
         setContentView(R.layout.activity_register_household);
 
         household = (EditText) findViewById(R.id.householdName);
-        username = (EditText) findViewById(R.id.username);
+        username = (EditText) findViewById(R.id.firstName);
         emailInput = (EditText) findViewById(R.id.email1);
         password = (EditText) findViewById(R.id.pw);
 
 
-        Button registerButton = (Button) findViewById(R.id.createUser);
+        Button registerButton = (Button) findViewById(R.id.loginButton);
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,7 +70,18 @@ public class RegisterHousehold extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    loadingBar.setTitle("Welcome, " + email);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (user != null) {
+                        DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+                        addUser.child("display").setValue(user.getDisplayName());
+                        addUser.child("email").setValue(user.getEmail());
+                        addUser.child("house").setValue(houseName);
+                    }
+
+
+
+                    loadingBar.setTitle("Welcome " + user.getDisplayName());
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
                     Intent i = new Intent(RegisterHousehold.this, TaskListActivity.class);

@@ -8,11 +8,14 @@ public class Message {
     public String user;
     public Date date;
 
+
     Message(String text, String user, Date date) {
         this.text = text;
         this.user = user;
         this.date = date;
+
     }
+
 
     protected String elapsedTimeString() {
         long diff = new Date().getTime() - date.getTime();
@@ -34,6 +37,14 @@ public class Message {
         } else {
             return "less than an hour";
         }
+    }
+
+    public void setUsername (String userName) {
+        this.user = userName;
+    }
+
+    public String getUsername(){
+        return user;
     }
 
 

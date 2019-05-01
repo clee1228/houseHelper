@@ -30,12 +30,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+
+
 public class MessageBoardActivity extends AppCompatActivity {
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<Message> msgList = new ArrayList<Message>();
-    private ArrayList<Message> sentMsgs = new ArrayList<Message>();
+//    private ArrayList<Message> sentMsgs = new ArrayList<Message>();
     public HashMap<String, String> messages;
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     RelativeLayout layout;
@@ -54,7 +57,6 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        username = extras.getString("username");
         household = extras.getString("houseName");
         Log.d("household MSG BOARD= ", household);
 
@@ -76,6 +78,15 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         msgList = new ArrayList<Message>();
 
+//        getHousename(new FirebaseCallback() {
+//            @Override
+//            public void onCallback(String value) {
+//                Log.d("callback print1", value);
+//                household = value;
+//            }
+//        });
+//
+//        Log.d("HOUSEHOLD", household);
 
 
         final DatabaseReference chats = database.getReference(household);
@@ -89,15 +100,8 @@ public class MessageBoardActivity extends AppCompatActivity {
                     Date date = getDate(s);
                     String message = ds.child("message").getValue(String.class);
                     String user = ds.child("user").getValue(String.class);
-                    if (user == username) {
-                        Message newMsg = new Message(message, user, date);
-                        sentMsgs.add(newMsg);
-
-                    } else{
-                        Message newMsg = new Message(message, user, date);
-                        msgList.add(newMsg);
-
-                    }
+                    Message newMsg = new Message(message, user, date);
+                    msgList.add(newMsg);
                 }
 
 
@@ -112,6 +116,7 @@ public class MessageBoardActivity extends AppCompatActivity {
         chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
     }
+
 
 
     private void setOnClickForSendButton() {
@@ -161,16 +166,51 @@ public class MessageBoardActivity extends AppCompatActivity {
     private void postNewComment(String msgInput) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Message newMsg = new Message(msgInput, username, new Date());
+        Message newMsg = new Message(msgInput, user.getDisplayName(), new Date());
         msgList.add(newMsg);
 
+//        getHousename(new FirebaseCallback() {
+//            @Override
+//            public void onCallback(String value) {
+//                Log.d("callback print", value);
+//                household = value;
+//            }
+//        });
+
+
+        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference chats  = database.getReference(household);
         String time = String.valueOf(new Date());
         DatabaseReference chat = chats.child(time);
-        chat.child("user").setValue(username);
+        chat.child("user").setValue(currUser.getDisplayName());
         chat.child("message").setValue(msgInput);
         setAdapterAndUpdateData();
     }
+
+//    private interface FirebaseCallback{
+//        void onCallback(String value);
+//    }
+
+
+//    private void getHousename(final FirebaseCallback callback) {
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference userInfo = database.getReference("Users").child(user.getUid()).child("house");
+//
+//        userInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String houseName = dataSnapshot.getValue(String.class);
+//                callback.onCallback(houseName);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d("onCancelled", databaseError.getMessage());
+//            }
+//        });
+//    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

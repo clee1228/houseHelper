@@ -58,10 +58,10 @@
                 android:theme="@style/EditTextTheme">
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/firstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="First Name"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -110,7 +110,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/createUser"
+                android:id="@+id/loginButton"
                 style="?android:textAppearanceSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
