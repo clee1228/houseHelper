@@ -34,7 +34,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="545dp"
+        android:layout_marginTop="498dp"
         android:text="ADD TASK"
         android:textColor="#4D4D4D"
         app:layout_constraintBottom_toTopOf="@+id/navigationView" />

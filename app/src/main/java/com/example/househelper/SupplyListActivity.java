@@ -50,7 +50,8 @@ public class SupplyListActivity extends AppCompatActivity {
         household = getExtras.getString("houseName");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        dbRef = db.getReference("Households/" + household + "/Supplies");
+        //change to household
+        dbRef = db.getReference("Households/MyHouse" + "/Supplies");
 
         ValueEventListener myDataListener = new ValueEventListener() {
             @Override

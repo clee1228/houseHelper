@@ -82,7 +82,8 @@ public class MessageBoardActivity extends AppCompatActivity {
         msgList = new ArrayList<Message>();
 
 
-        final DatabaseReference chats = database.getReference("Households").child(household).child("Chats");
+//        final DatabaseReference chats = database.getReference("Households").child(household).child("Chats");
+        final DatabaseReference chats = database.getReference("Households/MyHouse" + "/Chats");
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
