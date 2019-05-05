@@ -38,7 +38,7 @@ public class AddSupplyActivity extends AppCompatActivity {
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //change to household
-        dbRef = db.getReference("Households/MyHouse" + "/Supplies");
+        dbRef = db.getReference("Households/" + household + "/Supplies");
 
         // Urgency spinner stuff.
         Spinner spinner = findViewById(R.id.supply_urgency);

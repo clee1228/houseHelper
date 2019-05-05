@@ -2,13 +2,18 @@ package com.example.househelper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -16,16 +21,18 @@ public class SupplyAdapter extends RecyclerView.Adapter<SupplyViewHolder> {
 
     private Context mContext;
     private ArrayList<Supply> mSupplies;
+    private String household;
 
-    public SupplyAdapter(Context context, ArrayList<Supply> supplies) {
+    public SupplyAdapter(Context context, ArrayList<Supply> supplies, String household) {
         mContext = context;
         mSupplies = supplies;
+        this.household = household;
     }
 
     @Override
     public SupplyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.supply_cell_layout, parent, false);
-        return new SupplyViewHolder(view);
+        return new SupplyViewHolder(view, household);
     }
 
     @Override
@@ -51,12 +58,26 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     private Context context;
     private TextView mSupplyTextView;
     private TextView mSupplyUrgencyTextView;
+    private CheckBox supplyCheckBox;
+    private DatabaseReference dbRef;
 
-    SupplyViewHolder(View itemView) {
+    SupplyViewHolder(View itemView, String household) {
         super(itemView);
         this.mSupplyBubbleLayout = itemView.findViewById(R.id.supply_cell_layout);
         this.mSupplyTextView = mSupplyBubbleLayout.findViewById(R.id.supply_name_text_view);
         this.mSupplyUrgencyTextView = mSupplyBubbleLayout.findViewById(R.id.urgency_text_view);
+        final String mHousehold = household;
+
+        this.supplyCheckBox = itemView.findViewById(R.id.supply_check_box);
+        supplyCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                dbRef = db.getReference("Households/" + mHousehold + "/Supplies/" + mSupplyTextView.toString());
+                dbRef.removeValue();
+            }
+        });
+
 
         itemView.setClickable(true);
         itemView.setOnClickListener(this);
@@ -67,12 +88,10 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
         this.mSupply = supply;
         mSupplyTextView.setText(supply.getName());
         mSupplyUrgencyTextView.setText("urgency: " + supply.getUrgency());
-//        }
     }
 
     @Override
     public void onClick(View v) {
-//        Log.i("TASK VIEW HOLDER", "CLICK REGISTERED");
         Intent goToSupplyInfo = new Intent();
     }
 

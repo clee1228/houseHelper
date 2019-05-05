@@ -51,7 +51,7 @@ public class SupplyListActivity extends AppCompatActivity {
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //change to household
-        dbRef = db.getReference("Households/MyHouse" + "/Supplies");
+        dbRef = db.getReference("Households/" + household + "/Supplies");
 
         ValueEventListener myDataListener = new ValueEventListener() {
             @Override
@@ -121,7 +121,7 @@ public class SupplyListActivity extends AppCompatActivity {
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
-        mAdapter = new SupplyAdapter(this, mSupplies);
+        mAdapter = new SupplyAdapter(this, mSupplies, household);
         mRecyclerView.setAdapter(mAdapter);
     }
 
