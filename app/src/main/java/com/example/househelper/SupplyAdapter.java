@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -68,13 +69,19 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
         this.mSupplyUrgencyTextView = mSupplyBubbleLayout.findViewById(R.id.urgency_text_view);
         final String mHousehold = household;
 
-        this.supplyCheckBox = itemView.findViewById(R.id.supply_check_box);
-        supplyCheckBox.setOnClickListener(new View.OnClickListener() {
+        CheckBox supplyCheckBox = itemView.findViewById(R.id.supply_check_box);
+        supplyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
-            public void onClick(View v) {
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                dbRef = db.getReference("Households/" + mHousehold + "/Supplies/" + mSupplyTextView.toString());
-                dbRef.removeValue();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked )
+                {
+                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                    String supplyName = mSupply.getName();
+                    dbRef = db.getReference("Households/" + mHousehold + "/Supplies/" + supplyName);
+                    dbRef.removeValue();
+                }
+
             }
         });
 
