@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/task_name_field"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginBottom="-91dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="-65dp"
         android:entries="@array/frequency_choices"
         android:spinnerMode="dialog"
         tools:visibility="visible" />
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="222dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="175dp"
         android:text="Task Frequency"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
@@ -37,12 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="147dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Wash dishes"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#959696"
+        app:backgroundTint="@color/colorPrimaryDark" />
         android:textSize="16sp"
         android:textStyle="italic"
         tools:visibility="visible" />
@@ -53,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="121dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="90dp"
         android:text="Task Name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
@@ -75,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="355dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="295dp"
         android:ems="10"
         android:entries="@array/difficulty_choices"
         android:inputType="textPersonName"
@@ -109,12 +110,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="27dp"
         android:layout_marginTop="329dp"
-        android:layout_marginBottom="225dp"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginBottom="137dp"
         android:text="SUBMIT TASK"
-        android:textColor="@color/cardview_light_background" />
+        android:textColor="#4D4D4D"/>
 
     <TextView
         android:id="@+id/task_difficulty_textview"
@@ -122,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="322dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="260dp"
         android:text="Task Difficulty"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />

@@ -47,7 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="176dp"
         android:layout_marginEnd="236dp"
         android:background="#DDDDDD"
         android:spinnerMode="dropdown" />
@@ -61,7 +61,8 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="144dp"
         android:text="Select urgency ..."
-        android:textColor="#898A8A" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/submit_supply_button"

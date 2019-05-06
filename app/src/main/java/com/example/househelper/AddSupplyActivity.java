@@ -50,6 +50,7 @@ public class AddSupplyActivity extends AppCompatActivity {
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
         final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
         final Intent SupplyListIntent = new Intent(this, SupplyListActivity.class);
+        final Intent ProfileLinkIntent = new Intent(this, ProfileActivity.class);
 
 //        final Bundle newExtras = new Bundle();
 //        newExtras.putString("houseName",household);
@@ -57,6 +58,7 @@ public class AddSupplyActivity extends AppCompatActivity {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
+        BottomNavigationItemView profileLink = findViewById(R.id.profile);
 
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +82,13 @@ public class AddSupplyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SupplyListIntent.putExtras(extras);
                 startActivity(SupplyListIntent);
+            }
+        });
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileLinkIntent.putExtras(extras);
+                startActivity(ProfileLinkIntent);
             }
         });
 
@@ -123,8 +132,6 @@ public class AddSupplyActivity extends AppCompatActivity {
 
         String supplyName = supplyNameField.getText().toString();
         String urgency = urgencySpinner.getSelectedItem().toString();
-
-        Supply toAdd = new Supply(supplyName, urgency);
 
         DatabaseReference dbSupply = dbRef.child(supplyName);
         dbSupply.child("name").setValue(supplyName);

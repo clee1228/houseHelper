@@ -31,6 +31,7 @@ public class AddTaskActivity extends AppCompatActivity {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
+        BottomNavigationItemView profileLink = findViewById(R.id.profile);
         Button addTaskButton = findViewById(R.id.submit_task_button);
 
         final EditText taskNameEditText = findViewById(R.id.task_name_field);
@@ -47,9 +48,10 @@ public class AddTaskActivity extends AppCompatActivity {
 
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
+        final Intent ProfileLinkIntent = new Intent(this, ProfileActivity.class);
 
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        final Bundle extras = intent.getExtras();
         username = extras.getString("username");
         household = extras.getString("houseName");
 
@@ -65,12 +67,14 @@ public class AddTaskActivity extends AppCompatActivity {
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToMessageBoard.putExtras(extras);
                 startActivity(goToMessageBoard);
             }
         });
         supplyListLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToSupplyList.putExtras(extras);
                 startActivity(goToSupplyList);
             }
         });
@@ -78,6 +82,13 @@ public class AddTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 submitTask();
+            }
+        });
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileLinkIntent.putExtras(extras);
+                startActivity(ProfileLinkIntent);
             }
         });
     }
