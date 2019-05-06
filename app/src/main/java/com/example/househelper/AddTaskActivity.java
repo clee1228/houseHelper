@@ -104,11 +104,16 @@ public class AddTaskActivity extends AppCompatActivity {
         //assign task to user with min difficulty score
         User assignedUser = assignTask(TaskListActivity.getDifficultyScore(difficulty));
         Task toAdd = new Task(taskName, difficulty, frequency, false, assignedUser.email);
+        int newScore = assignedUser.score + TaskListActivity.getDifficultyScore(difficulty);
+        assignedUser.setScore(newScore);
 
-
+        //TODO: pass udpated list of users back with intent
         mDatabase.child(this.household).child("Tasks").child(taskName).setValue(toAdd);
 
         final Intent goBackToTasks = new Intent(this, TaskListActivity.class);
+        goBackToTasks.putExtra("users", mUsers);
+        goBackToTasks.putExtra("houseName", household);
+        goBackToTasks.putExtra("username", username);
         startActivity(goBackToTasks);
     }
 

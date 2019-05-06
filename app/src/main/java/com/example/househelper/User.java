@@ -31,4 +31,8 @@ public class User implements Serializable {
     public int getScore() {
         return this.score;
     }
+
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
 }

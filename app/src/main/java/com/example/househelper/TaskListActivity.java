@@ -52,7 +52,13 @@ public class TaskListActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
         household = intent.getStringExtra("houseName");
 
-        mUsers = new ArrayList<>();
+        if (intent.hasExtra("users")) {
+            Log.i("Task List Activity", "got here");
+            mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
+            Log.i("Task List Activity", mUsers.toString());
+        } else {
+            mUsers = new ArrayList<>();
+        }
         mTasks = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -116,7 +122,6 @@ public class TaskListActivity extends AppCompatActivity {
                     User loadedUser = new User(taskMap.get("display"), taskMap.get("email"));
                     mUsers.add(loadedUser);
                 }
-                Log.i("TASK LIST", mUsers.toString());
                 setAdapterAndUpdateData();
             }
             @Override
@@ -154,6 +159,12 @@ public class TaskListActivity extends AppCompatActivity {
         setAdapterAndUpdateData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setAdapterAndUpdateData();
+    }
+
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
@@ -168,7 +179,8 @@ public class TaskListActivity extends AppCompatActivity {
                 for (User user : mUsers) {
                     if (user.getEmail().equals(task.userEmail)) {
                         user.tasks.add(task);
-                        user.score += getDifficultyScore(task.difficulty);
+                        user.setScore(user.score + getDifficultyScore(task.difficulty));
+                        Log.i("Merge User Tasks", Integer.toString(user.score));
                     }
                 }
             }
@@ -177,11 +189,11 @@ public class TaskListActivity extends AppCompatActivity {
 
     public static int getDifficultyScore(String difficulty) {
         switch(difficulty) {
-            case "easy" :
+            case "Easy" :
                 return 1;
-            case "medium" :
+            case "Moderate" :
                 return 2;
-            case "hard" :
+            case "Hard" :
                 return 3;
         }
 
