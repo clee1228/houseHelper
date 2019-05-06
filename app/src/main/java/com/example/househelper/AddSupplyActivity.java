@@ -124,8 +124,6 @@ public class AddSupplyActivity extends AppCompatActivity {
         String supplyName = supplyNameField.getText().toString();
         String urgency = urgencySpinner.getSelectedItem().toString();
 
-        Supply toAdd = new Supply(supplyName, urgency);
-
         DatabaseReference dbSupply = dbRef.child(supplyName);
         dbSupply.child("name").setValue(supplyName);
         dbSupply.child("urgency").setValue(urgency);

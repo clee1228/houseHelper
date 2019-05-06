@@ -68,7 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot task : taskData) {
                     HashMap<String, String> taskMap = (HashMap<String, String>) task.getValue();
                     String retrievedEmail = taskMap.get("userEmail");
-                    if (retrievedEmail.equals(email)) {
+                    Object completed = taskMap.get("completed");
+                    Boolean completedBool = (Boolean) completed;
+                    if (retrievedEmail.equals(email) && completedBool.equals(false)) {
                         Task loadedTask = new Task(taskMap.get("name"),
                                 taskMap.get("difficulty"), taskMap.get("frequency"));
                         mTasks.add(loadedTask);
