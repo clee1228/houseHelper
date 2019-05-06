@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class TaskListActivity extends AppCompatActivity {
@@ -32,9 +33,11 @@ public class TaskListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RelativeLayout layout;
     private ArrayList<User> mUsers;
+    private ArrayList<Task> mTasks;
 
     String username, household, displayname;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,11 @@ public class TaskListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Households");
         username = intent.getStringExtra("username");
         household = intent.getStringExtra("houseName");
 
         mUsers = new ArrayList<>();
+        mTasks = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,8 +70,6 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToProfile = new Intent(this, UserProfile.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
-
-
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +90,7 @@ public class TaskListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToAddTask.putExtras(extras);
+                goToAddTask.putExtra("users", mUsers); //TODO: pass in users list
                 startActivity(goToAddTask);
             }
         });
@@ -101,47 +103,89 @@ public class TaskListActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        mDatabaseUsers = db.getReference("Households/" + household + "/Users");
+        ValueEventListener userDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Set a breakpoint in this method and run in debug mode!!
+                // this will be called each time `bearRef` or one of its children is modified
+                mUsers = new ArrayList<>();
+                Iterable<DataSnapshot> userData = dataSnapshot.getChildren();
+                for (DataSnapshot user : userData) {
+                    HashMap<String, String> taskMap = (HashMap<String, String>) user.getValue();
+                    User loadedUser = new User(taskMap.get("display"), taskMap.get("email"));
+                    mUsers.add(loadedUser);
+                }
+                Log.i("TASK LIST", mUsers.toString());
+                setAdapterAndUpdateData();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("0", "cancelled");
+            }
+        };
+
+        mDatabaseUsers.addValueEventListener(userDataListener);
+
+        mDatabaseTasks = db.getReference("Households/" + household + "/Tasks");
+        ValueEventListener taskDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Set a breakpoint in this method and run in debug mode!!
+                // this will be called each time `bearRef` or one of its children is modified
+                mTasks = new ArrayList<>();
+                Iterable<DataSnapshot> tasksData = dataSnapshot.getChildren();
+                for (DataSnapshot task : tasksData) {
+                    HashMap<String, Object> taskMap = (HashMap<String, Object>) task.getValue();
+                    Task loadedTask = new Task((String)taskMap.get("name"), (String)taskMap.get("difficulty"),
+                            (String)taskMap.get("frequency"), (boolean)taskMap.get("completed"), (String)taskMap.get("userEmail"));
+                    mTasks.add(loadedTask);
+                }
+                setAdapterAndUpdateData();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("0", "cancelled");
+            }
+        };
+
+        mDatabaseTasks.addValueEventListener(taskDataListener);
+
         setAdapterAndUpdateData();
     }
 
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
-        createUsers();
+        mergeUserTasks();
         mAdapter = new TaskAdapter(this, this.mUsers);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void getUserData() {
-        DatabaseReference ref = mDatabase.child(household).child("Users");
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Map<String, Object> entries = (Map<String, Object>)dataSnapshot.getValue();
-                        for (Map.Entry<String, Object> entry : entries.entrySet()) {
-                            Map user = (Map) entry.getValue();
-//                            User newUser = new User(user.get(""))
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+    private void mergeUserTasks() {
+        for (Task task : mTasks) {
+            if (! task.userEmail.equals("")) {
+                for (User user : mUsers) {
+                    if (user.getEmail().equals(task.userEmail)) {
+                        user.tasks.add(task);
+                        user.score += getDifficultyScore(task.difficulty);
                     }
                 }
-        );
+            }
+        }
     }
 
-    // DUMMY DATA, DELETE LATER
-    private void createUsers() {
-        ArrayList<String> tasks = new ArrayList<>();
-        tasks.add("Take out trash");
-        tasks.add("Clean kitchen");
-        tasks.add("Wash dishes");
-        this.mUsers.add(new User("Davis", tasks));
-        this.mUsers.add(new User("Keren", tasks));
-        this.mUsers.add(new User("Justin", tasks));
-        this.mUsers.add(new User("Caitlin", tasks));
+    public int getDifficultyScore(String difficulty) {
+        switch(difficulty) {
+            case "easy" :
+                return 1;
+            case "medium" :
+                return 2;
+            case "hard" :
+                return 3;
+        }
+
+        return 0;
     }
 }

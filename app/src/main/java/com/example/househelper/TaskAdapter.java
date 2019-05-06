@@ -65,9 +65,9 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         this.mUser = user;
         Log.i("TASK VIEW HOLDER", user.getName());
         mUserNameTextView.setText(user.getName());
-        for (String task : user.getTasks()) {
+        for (Task task : user.getTasks()) {
             TextView newTask = new TextView(this.context);
-            newTask.setText(task);
+            newTask.setText(task.name);
             newTask.setPadding(50, 5, 0, 0);
             //TODO: If task completed, add checkmark next to it
             mTaskBubbleLayout.addView(newTask);
