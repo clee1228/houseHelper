@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/supply_cell_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@layout/border"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- User name text view -->
+        <TextView
+            android:id="@+id/profile_task_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="task name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24dp"
+            android:layout_marginStart="27dp"
+            android:typeface="sans" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="fill_parent"
+        android:layout_height="63dp"
+        android:orientation="vertical">
+
+        <!-- "Tasks" text view -->
+        <TextView
+            android:id="@+id/difficulty_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="difficulty"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/profile_task_check_box"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:text="completed"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

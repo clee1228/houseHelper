@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UserProfile"></activity>
+        <activity
+            android:name=".ProfileTaskAdapter"
+            android:label="@string/title_activity_profile_task_adapter"
+            android:theme="@style/NoActionBar"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".UserProfile" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".RegisterHousehold" />
         <activity android:name=".Registration" />

@@ -84,11 +84,14 @@ public class SupplyListActivity extends AppCompatActivity {
     private void setButtonOnClicks() {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
+        BottomNavigationItemView profileLink = findViewById(R.id.profile);
+
         addSupplyButton = findViewById(R.id.add_supply_button);
 
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
         final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
         final Intent AddSupplyIntent = new Intent(this, AddSupplyActivity.class);
+        final Intent ProfileLinkIntent = new Intent(this, ProfileActivity.class);
 
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
@@ -99,6 +102,14 @@ public class SupplyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MessageBoardIntent.putExtras(extras);
                 startActivity(MessageBoardIntent);
+            }
+        });
+
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileLinkIntent.putExtras(extras);
+                startActivity(ProfileLinkIntent);
             }
         });
 
