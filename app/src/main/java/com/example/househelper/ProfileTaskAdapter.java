@@ -73,7 +73,6 @@ class ProfileTaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         taskCheckBox = itemView.findViewById(R.id.profile_task_check_box);
         taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if ( isChecked )
@@ -81,8 +80,8 @@ class ProfileTaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                     FirebaseDatabase db = FirebaseDatabase.getInstance();
                     String taskName = mTask.getName();
                     //TODO: get the object we want to delete.
-//                    dbRef = db.getReference("Households/" + mHousehold + "/Davis/" + taskName);
-//                    dbRef.removeValue();
+                    dbRef = db.getReference("Households/" + mHousehold + "/Tasks/" + taskName + "/completed");
+                    dbRef.setValue("true");
                 }
 
             }
