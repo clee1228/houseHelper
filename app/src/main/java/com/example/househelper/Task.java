@@ -21,6 +21,10 @@ public class Task {
         this.completed = true;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
 }
 
 //enum Frequency {
