@@ -75,13 +75,16 @@ class ProfileTaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ( isChecked )
-                {
-                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                    String taskName = mTask.getName();
-                    //TODO: get the object we want to delete.
-                    dbRef = db.getReference("Households/" + mHousehold + "/Tasks/" + taskName + "/completed");
-                    dbRef.setValue("true");
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                String taskName = mTask.getName();
+                //TODO: get the object we want to delete.
+                dbRef = db.getReference("Households/" + mHousehold + "/Tasks/" + taskName + "/completed");
+                if ( isChecked ) {
+                    dbRef.setValue(true);
+                    taskCheckBox.setChecked(true);
+                } else {
+                    dbRef.setValue(false);
+                    taskCheckBox.setChecked(false);
                 }
 
             }
