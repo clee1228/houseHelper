@@ -50,6 +50,7 @@ public class SupplyListActivity extends AppCompatActivity {
         household = getExtras.getString("houseName");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        //change to household
         dbRef = db.getReference("Households/" + household + "/Supplies");
 
         ValueEventListener myDataListener = new ValueEventListener() {
@@ -57,6 +58,7 @@ public class SupplyListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Set a breakpoint in this method and run in debug mode!!
                 // this will be called each time `bearRef` or one of its children is modified
+                mSupplies = new ArrayList<>();
                 Iterable<DataSnapshot> suppliesData = dataSnapshot.getChildren();
                 for (DataSnapshot supply : suppliesData) {
                     HashMap<String, String> supplyMap = (HashMap<String, String>) supply.getValue();
@@ -120,7 +122,7 @@ public class SupplyListActivity extends AppCompatActivity {
     private void setAdapterAndUpdateData() {
         // create a new adapter with the updated mComments array
         // this will "refresh" our recycler view
-        mAdapter = new SupplyAdapter(this, mSupplies);
+        mAdapter = new SupplyAdapter(this, mSupplies, household);
         mRecyclerView.setAdapter(mAdapter);
     }
 

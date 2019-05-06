@@ -26,21 +26,30 @@
             android:typeface="sans" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/row2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
         android:orientation="vertical">
 
         <!-- "Tasks" text view -->
         <TextView
             android:id="@+id/urgency_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:text="urgency"
-            android:layout_marginStart="27dp"
             android:textColor="@color/colorPrimary"
             android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/supply_check_box"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:text="purchased"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
