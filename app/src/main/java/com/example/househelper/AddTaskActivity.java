@@ -82,6 +82,16 @@ public class AddTaskActivity extends AppCompatActivity {
         });
     }
 
+    public User assignTask(int score) {
+        User minUser = mUsers.get(0);
+        for (User u : mUsers) {
+            if (u.score < score) {
+                minUser = u;
+            }
+        }
+        return minUser;
+    }
+
     public void submitTask() {
         EditText taskNameField = findViewById(R.id.task_name_field);
         Spinner frequencySpinner = findViewById(R.id.frequency_spinner);
@@ -91,7 +101,11 @@ public class AddTaskActivity extends AppCompatActivity {
         String frequency = frequencySpinner.getSelectedItem().toString();
         String difficulty = difficultySpinner.getSelectedItem().toString();
 
-        Task toAdd = new Task(taskName, difficulty, frequency);
+        //assign task to user with min difficulty score
+        User assignedUser = assignTask(TaskListActivity.getDifficultyScore(difficulty));
+        Task toAdd = new Task(taskName, difficulty, frequency, false, assignedUser.email);
+
+
         mDatabase.child(this.household).child("Tasks").child(taskName).setValue(toAdd);
 
         final Intent goBackToTasks = new Intent(this, TaskListActivity.class);

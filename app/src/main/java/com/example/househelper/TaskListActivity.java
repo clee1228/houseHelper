@@ -44,7 +44,6 @@ public class TaskListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         setTitle("Tasks");
-
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -67,7 +66,7 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
         final Intent goToAddTask = new Intent(this, AddTaskActivity.class);
-        final Intent goToProfile = new Intent(this, UserProfile.class);
+        final Intent goToProfile = new Intent(this, ProfileActivity.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
 
@@ -90,7 +89,7 @@ public class TaskListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToAddTask.putExtras(extras);
-                goToAddTask.putExtra("users", mUsers); //TODO: pass in users list
+                goToAddTask.putExtra("users", mUsers);
                 startActivity(goToAddTask);
             }
         });
@@ -176,7 +175,7 @@ public class TaskListActivity extends AppCompatActivity {
         }
     }
 
-    public int getDifficultyScore(String difficulty) {
+    public static int getDifficultyScore(String difficulty) {
         switch(difficulty) {
             case "easy" :
                 return 1;
