@@ -33,7 +33,7 @@ public class ProfileTaskAdapter extends RecyclerView.Adapter<ProfileTaskViewHold
     @Override
     public ProfileTaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //TODO: profile_task_cell_layout
-        View view = LayoutInflater.from(mContext).inflate(R.layout.supply_cell_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.profile_task_cell_layout, parent, false);
         return new ProfileTaskViewHolder(view, household);
     }
 
@@ -56,7 +56,7 @@ public class ProfileTaskAdapter extends RecyclerView.Adapter<ProfileTaskViewHold
 class ProfileTaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private Task mTask;
-    private LinearLayout mSupplyBubbleLayout;
+    private LinearLayout mTaskBubbleLayout;
     private Context context;
     private TextView mTaskTextView;
     private TextView mTaskDifficultyTextView;
@@ -66,9 +66,9 @@ class ProfileTaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     ProfileTaskViewHolder(View itemView, String household) {
         super(itemView);
-        this.mSupplyBubbleLayout = itemView.findViewById(R.id.supply_cell_layout);
-        this.mTaskTextView = mSupplyBubbleLayout.findViewById(R.id.supply_name_text_view);
-        this.mTaskDifficultyTextView = mSupplyBubbleLayout.findViewById(R.id.difficulty_text_view);
+        this.mTaskBubbleLayout = itemView.findViewById(R.id.profile_task_cell_layout);
+        this.mTaskTextView = mTaskBubbleLayout.findViewById(R.id.profile_task_name_text_view);
+        this.mTaskDifficultyTextView = mTaskBubbleLayout.findViewById(R.id.difficulty_text_view);
         final String mHousehold = household;
 
         taskCheckBox = itemView.findViewById(R.id.profile_task_check_box);
