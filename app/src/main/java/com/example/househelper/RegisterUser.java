@@ -110,7 +110,6 @@ public class RegisterUser extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if (user != null) {
-
                         DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users").child(user.getUid());
                         addUser.child("display").setValue(user.getDisplayName());
                         addUser.child("email").setValue(user.getEmail());
@@ -124,6 +123,8 @@ public class RegisterUser extends AppCompatActivity {
                     Bundle extras = new Bundle();
                     extras.putString("houseName",houseName);
                     extras.putString("username", name);
+                    Boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+                    i.putExtra("isNew", isNew);
                     i.putExtras(extras);
                     startActivity(i);
                     Animatoo.animateSwipeLeft(RegisterUser.this);

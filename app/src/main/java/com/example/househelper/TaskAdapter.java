@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -66,11 +67,25 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         Log.i("TASK VIEW HOLDER", user.getName());
         mUserNameTextView.setText(user.getName());
         for (Task task : user.getTasks()) {
+            LinearLayout taskLine = new LinearLayout(context);
+            taskLine.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            taskLine.setOrientation(LinearLayout.HORIZONTAL);
+
             TextView newTask = new TextView(this.context);
             newTask.setText(task.name);
             newTask.setPadding(50, 5, 0, 0);
+            ImageView completedCheck = null;
+            if (task.completed) {
+                completedCheck = new ImageView(context);
+                completedCheck.setImageResource(R.drawable.baseline_done_black_18dp);
+                completedCheck.setPadding(10, 5, 0, 0);
+            }
             //TODO: If task completed, add checkmark next to it
-            mTaskBubbleLayout.addView(newTask);
+            taskLine.addView(newTask);
+            if (completedCheck != null) {
+                taskLine.addView(completedCheck);
+            }
+            mTaskBubbleLayout.addView(taskLine);
         }
     }
 

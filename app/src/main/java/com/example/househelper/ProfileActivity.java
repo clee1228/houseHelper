@@ -99,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
-        Button viewProfileButton = findViewById(R.id.view_profie_details_button);
+        Button viewProfileButton = findViewById(R.id.view_profile_details_button);
 
         final Intent MessageBoardIntent = new Intent(this, MessageBoardActivity.class);
         final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);

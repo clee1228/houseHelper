@@ -3,6 +3,7 @@ package com.example.househelper;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -157,6 +158,12 @@ public class TaskListActivity extends AppCompatActivity {
         mDatabaseTasks.addValueEventListener(taskDataListener);
 
         setAdapterAndUpdateData();
+
+        Boolean isNew = intent.getBooleanExtra("isNew", false);
+        if (isNew) {
+            AlertDialog alert = new AlertDialog.Builder(mRecyclerView.getContext()).setMessage("Visit Profile page to check off completed tasks.").show();
+            alert.show();
+        }
     }
 
     @Override

@@ -91,9 +91,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loadingBar.setTitle("Welcome " + user.getDisplayName());
                     loadingBar.setCanceledOnTouchOutside(true);
                     loadingBar.show();
+                    Boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
                     Intent first = new Intent(LoginActivity.this, TaskListActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("houseName",houseName);
+                    first.putExtra("isNew", isNew);
                     first.putExtras(extras);
                     startActivity(first);
                     Log.i("LOGIN ACTIVITY", first.getExtras().toString());
