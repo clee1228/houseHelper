@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -30,19 +31,30 @@ public class SupplyListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     String household;
     DatabaseReference dbRef;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supply_list);
 
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         mRecyclerView = findViewById(R.id.supply_recycler);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mSupplies = new ArrayList<>();
-        Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
 
         Intent intent = getIntent();
@@ -95,7 +107,6 @@ public class SupplyListActivity extends AppCompatActivity {
 
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
-
 
         messageBoardLink.setOnClickListener(new View.OnClickListener() {
             @Override

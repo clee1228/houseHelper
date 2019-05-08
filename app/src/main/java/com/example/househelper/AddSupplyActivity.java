@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -21,11 +22,10 @@ import java.util.UUID;
 
 public class AddSupplyActivity extends AppCompatActivity {
 
-
-    ImageView goBackButton;
     Button submitButton;
     private DatabaseReference dbRef;
     String username, household;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,18 @@ public class AddSupplyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
         household = extras.getString("houseName");
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //change to household
@@ -51,9 +63,6 @@ public class AddSupplyActivity extends AppCompatActivity {
         final Intent TaskListLinkIntent = new Intent(this, TaskListActivity.class);
         final Intent SupplyListIntent = new Intent(this, SupplyListActivity.class);
         final Intent ProfileLinkIntent = new Intent(this, ProfileActivity.class);
-
-//        final Bundle newExtras = new Bundle();
-//        newExtras.putString("houseName",household);
 
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
@@ -93,20 +102,7 @@ public class AddSupplyActivity extends AppCompatActivity {
         });
 
 
-        Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        goBackButton = findViewById(R.id.back_button);
         submitButton = findViewById(R.id.submit_supply_button);
-
-        goBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Bundle extras = new Bundle();
-                extras.putString("houseName",household);
-                SupplyListIntent.putExtras(extras);
-                startActivity(SupplyListIntent);
-            }
-        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override

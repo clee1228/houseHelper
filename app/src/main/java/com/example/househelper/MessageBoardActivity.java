@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -50,32 +51,17 @@ public class MessageBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message_board);
 
         setTitle("Group Chat");
-
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         household = extras.getString("houseName");
 
-        layout = (RelativeLayout) findViewById(R.id.chat_layout);
-        message = (EditText) layout.findViewById(R.id.input_msg);
-        sendButton = (Button) layout.findViewById(R.id.send_button);
-
-        mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
-        setSupportActionBar(mToolbar);
-        Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-
+        setPageUp();
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(20);
-        mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickForSendButton();
 
@@ -109,6 +95,24 @@ public class MessageBoardActivity extends AppCompatActivity {
 
         chats.addValueEventListener(listener);
         setAdapterAndUpdateData();
+    }
+
+    private void setPageUp(){
+        layout = (RelativeLayout) findViewById(R.id.chat_layout);
+        message = (EditText) layout.findViewById(R.id.input_msg);
+        sendButton = (Button) layout.findViewById(R.id.send_button);
+
+        mToolbar = (Toolbar) findViewById(R.id.msgToolbar);
+        setSupportActionBar(mToolbar);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void setOnClickForSendButton() {

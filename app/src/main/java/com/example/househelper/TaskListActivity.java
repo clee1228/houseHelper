@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -39,19 +40,19 @@ public class TaskListActivity extends AppCompatActivity {
     String username, household, displayname;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseTasks;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
-        setTitle("Tasks");
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         Intent intent = getIntent();
 
-        username = intent.getStringExtra("username");
         household = intent.getStringExtra("houseName");
+
 
         if (intent.hasExtra("users")) {
             Log.i("Task List Activity", "got here");

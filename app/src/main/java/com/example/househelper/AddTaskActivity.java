@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -21,10 +22,23 @@ public class AddTaskActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     String username, household;
     ArrayList<User> mUsers;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Households");
         setContentView(R.layout.activity_add_task);
@@ -43,9 +57,6 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         final Intent goToTasks = new Intent(this, TaskListActivity.class);
-        Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-
         final Intent goToMessageBoard = new Intent(this, MessageBoardActivity.class);
         final Intent goToSupplyList = new Intent(this, SupplyListActivity.class);
         final Intent ProfileLinkIntent = new Intent(this, ProfileActivity.class);

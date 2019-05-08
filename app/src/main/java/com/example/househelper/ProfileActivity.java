@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ArrayList<Task> mTasks;
     private RecyclerView taskRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    Toolbar myToolbar;
 
 
     @Override
@@ -45,6 +47,9 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle getExtras = intent.getExtras();
         household = getExtras.getString("houseName");
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //change to household

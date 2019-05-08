@@ -44,9 +44,8 @@
     <string name="imgdesc">imgdesc</string>
 
     <string-array name="Profile">
-        <item>Name</item>
-        <item>Email</item>
-        <item>Password</item>
+        <item>Change E-mail</item>
+        <item>Change Password</item>
         <item>Sign Out</item>
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>

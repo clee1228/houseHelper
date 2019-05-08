@@ -110,7 +110,6 @@ public class RegisterHousehold extends AppCompatActivity {
                     if (user != null) {
                         DatabaseReference addUser = FirebaseDatabase.getInstance().getReference("Households").child(houseName).child("Users").child(user.getUid());
                         addUser.child("display").setValue(user.getDisplayName());
-                        addUser.child("email").setValue(user.getEmail());
                     }
 
 

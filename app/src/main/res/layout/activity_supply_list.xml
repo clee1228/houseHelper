@@ -6,14 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".SupplyListActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#4B698B"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/back_arrow"
+        app:title="Add New Supply"
+        app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title."
+        app:titleTextColor="#fff" />
+
     <Button
         android:id="@+id/add_supply_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
+        android:layout_marginLeft="14dp"
         android:layout_marginTop="498dp"
+        android:layout_marginRight="14dp"
         android:text="ADD SUPPLY"
         android:textColor="#4D4D4D" />
 
