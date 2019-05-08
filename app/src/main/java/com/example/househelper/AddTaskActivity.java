@@ -2,6 +2,7 @@ package com.example.househelper;
 
 import android.content.Intent;
 import android.support.design.internal.BottomNavigationItemView;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +11,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -28,7 +33,8 @@ public class AddTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_add_task);
+        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mToolbar);
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -41,12 +47,26 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Households");
-        setContentView(R.layout.activity_add_task);
         BottomNavigationItemView messageBoardLink = findViewById(R.id.chat);
         BottomNavigationItemView supplyListLink = findViewById(R.id.shopList);
         BottomNavigationItemView taskListLink = findViewById(R.id.tasks);
         BottomNavigationItemView profileLink = findViewById(R.id.profile);
         Button addTaskButton = findViewById(R.id.submit_task_button);
+        ImageView datePicker = findViewById(R.id.datePickerButton);
+        EditText dateEditText = findViewById(R.id.date_editText);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        String formattedDate = df.format(c);
+        dateEditText.setText(formattedDate);
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
 
         final EditText taskNameEditText = findViewById(R.id.task_name_field);
         taskNameEditText.setOnClickListener(new View.OnClickListener() {
