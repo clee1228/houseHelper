@@ -18,55 +18,15 @@
         app:titleTextAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title."
         app:titleTextColor="#fff" />
 
-    <Spinner
-        android:id="@+id/difficulty_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="295dp"
-        android:ems="10"
-        android:entries="@array/difficulty_choices"
-        android:inputType="textPersonName"
-        android:spinnerMode="dialog"
-        android:text="Wash dishes"
-        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/task_difficulty_textview2"
+        android:id="@+id/task_name_textview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="260dp"
-        android:text="Task Difficulty"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:textSize="18sp" />
-
-    <Spinner
-        android:id="@+id/frequency_spinner"
-        android:layout_width="181dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/task_name_field"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginBottom="-65dp"
-        android:entries="@array/frequency_choices"
-        android:spinnerMode="dialog"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/task_name_textview3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="175dp"
-        android:text="Task Frequency"
+        android:layout_marginTop="90dp"
+        android:text="Task Name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -79,9 +39,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
         android:layout_marginTop="120dp"
+        android:layout_below="@id/task_name_textview2"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Wash dishes"
+        android:hint="Wash dishes"
         android:textColor="#959696"
         app:backgroundTint="@color/colorPrimaryDark"
         android:textSize="16sp"
@@ -89,45 +50,95 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/task_name_textview2"
+        android:id="@+id/task_name_textview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="90dp"
-        android:text="Task Name"
+        android:layout_marginTop="175dp"
+        android:text="Task Frequency"
+        android:layout_below="@id/task_name_field"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
+    <Spinner
+        android:id="@+id/frequency_spinner"
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/task_name_field"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="-65dp"
+        android:layout_below="@id/task_name_textview3"
+        android:entries="@array/frequency_choices"
+        android:spinnerMode="dialog"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/task_difficulty_textview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="260dp"
+        android:text="Task Difficulty"
+        android:layout_below="@id/frequency_spinner"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+
+    <Spinner
+        android:id="@+id/difficulty_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="295dp"
+        android:ems="10"
+        android:layout_below="@id/task_difficulty_textview2"
+        android:entries="@array/difficulty_choices"
+        android:inputType="textPersonName"
+        android:spinnerMode="dialog"
+        android:text="Wash dishes"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/task_start_textview"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#4B698B"
-        android:elevation="4dp"
-        app:title="Add Task to Rotation"
-        app:titleTextColor="#fff" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/difficulty_spinner"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="350dp"
+        android:text="Task Start Date"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
 
     <LinearLayout
         android:id="@+id/dateFieldsLayout"
-        android:layout_width="400dp"
-        android:layout_height="53dp"
-        android:layout_below="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="342dp"
-        android:layout_marginBottom="280dp"
+        android:layout_below="@id/task_start_textview"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/date_editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
             android:ems="10"
             android:inputType="time"
             android:text="Wash dishes"
@@ -136,7 +147,8 @@
         <ImageView
             android:id="@+id/datePickerButton"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
             app:srcCompat="@drawable/baseline_calendar_today_black_18dp" />
 
     </LinearLayout>
@@ -173,19 +185,6 @@
         android:text="SUBMIT TASK"
         android:textColor="#4D4D4D" />
 
-    <TextView
-        android:id="@+id/task_start_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/navigationView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="361dp"
-        android:layout_marginBottom="290dp"
-        android:text="Task Start Date"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+
 
 </RelativeLayout>
