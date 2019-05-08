@@ -29,6 +29,7 @@ public class AddTaskActivity extends AppCompatActivity {
     String username, household;
     ArrayList<User> mUsers;
     Toolbar mToolbar;
+    EditText dateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,10 @@ public class AddTaskActivity extends AppCompatActivity {
         BottomNavigationItemView profileLink = findViewById(R.id.profile);
         Button addTaskButton = findViewById(R.id.submit_task_button);
         ImageView datePicker = findViewById(R.id.datePickerButton);
-        EditText dateEditText = findViewById(R.id.date_editText);
+        final EditText dateEditText = findViewById(R.id.date_editText);
 
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         String formattedDate = df.format(c);
         dateEditText.setText(formattedDate);
 
@@ -169,6 +170,11 @@ public class AddTaskActivity extends AppCompatActivity {
         calendar.set(year, month, day);
 
         return calendar.getTime();
+    }
+
+    public void setDateEditText(String date) {
+        EditText dateText = findViewById(R.id.date_editText);
+        dateText.setText(date);
     }
 
 }

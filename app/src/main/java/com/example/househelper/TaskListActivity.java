@@ -158,7 +158,7 @@ public class TaskListActivity extends AppCompatActivity {
 
         mDatabaseTasks.addValueEventListener(taskDataListener);
 
-        setAdapterAndUpdateData();
+//        setAdapterAndUpdateData();
 
         Boolean isNew = intent.getBooleanExtra("isNew", false);
         if (isNew) {
@@ -174,8 +174,6 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     private void setAdapterAndUpdateData() {
-        // create a new adapter with the updated mComments array
-        // this will "refresh" our recycler view
         mergeUserTasks();
         mAdapter = new TaskAdapter(this, this.mUsers);
         mRecyclerView.setAdapter(mAdapter);
@@ -186,9 +184,11 @@ public class TaskListActivity extends AppCompatActivity {
             if (! task.userEmail.equals("")) {
                 for (User user : mUsers) {
                     if (user.getEmail().equals(task.userEmail)) {
-                        user.tasks.add(task);
-                        user.setScore(user.score + getDifficultyScore(task.difficulty));
-                        Log.i("Merge User Tasks", Integer.toString(user.score));
+                        if (!user.tasks.contains(task)) {
+                            user.tasks.add(task);
+                            user.setScore(user.score + getDifficultyScore(task.difficulty));
+                            Log.i("Merge User Tasks", Integer.toString(user.score));
+                        }
                     }
                 }
             }
