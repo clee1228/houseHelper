@@ -23,6 +23,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp"
             android:layout_marginStart="10dp"
+            android:textStyle="bold"
             android:typeface="sans" />
 
     </LinearLayout>
@@ -31,7 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@id/user_name_text_view">
 
         <!-- "Tasks" text view -->
         <TextView

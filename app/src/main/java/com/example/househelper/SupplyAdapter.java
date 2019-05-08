@@ -94,7 +94,7 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     void bind(Supply supply) {
         this.mSupply = supply;
         mSupplyTextView.setText(supply.getName());
-        mSupplyUrgencyTextView.setText("urgency: " + supply.getUrgency());
+        mSupplyUrgencyTextView.setText("Urgency: " + supply.getUrgency());
     }
 
     @Override
