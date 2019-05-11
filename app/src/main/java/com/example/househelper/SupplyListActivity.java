@@ -59,14 +59,13 @@ public class SupplyListActivity extends AppCompatActivity {
         ValueEventListener myDataListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Set a breakpoint in this method and run in debug mode!!
-                // this will be called each time `bearRef` or one of its children is modified
                 mSupplies = new ArrayList<>();
                 Iterable<DataSnapshot> suppliesData = dataSnapshot.getChildren();
                 for (DataSnapshot supply : suppliesData) {
                     HashMap<String, String> supplyMap = (HashMap<String, String>) supply.getValue();
+                    //TODO: change price
                     Supply loadedSupply = new Supply(supplyMap.get("name"),
-                            supplyMap.get("urgency"));
+                            supplyMap.get("urgency"), "7.50");
                     mSupplies.add(loadedSupply);
                 }
                 setAdapterAndUpdateData();

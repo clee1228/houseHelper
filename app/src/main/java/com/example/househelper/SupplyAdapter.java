@@ -59,6 +59,7 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
     private Context context;
     private TextView mSupplyTextView;
     private TextView mSupplyUrgencyTextView;
+    private TextView mSupplyPriceTextView;
     private CheckBox supplyCheckBox;
     private DatabaseReference dbRef;
 
@@ -67,6 +68,7 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
         this.mSupplyBubbleLayout = itemView.findViewById(R.id.supply_cell_layout);
         this.mSupplyTextView = mSupplyBubbleLayout.findViewById(R.id.supply_name_text_view);
         this.mSupplyUrgencyTextView = mSupplyBubbleLayout.findViewById(R.id.urgency_text_view);
+//        this.mSupplyPriceTextView = mSupplyBubbleLayout.findViewById(R.id.r)
         final String mHousehold = household;
 
         CheckBox supplyCheckBox = itemView.findViewById(R.id.supply_check_box);
@@ -95,6 +97,7 @@ class SupplyViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
         this.mSupply = supply;
         mSupplyTextView.setText(supply.getName());
         mSupplyUrgencyTextView.setText("Urgency: " + supply.getUrgency());
+//        mSupplyPriceTextView.setText("Price: " + supply.getPrice());
     }
 
     @Override

@@ -112,6 +112,13 @@ public class AddSupplyActivity extends AppCompatActivity {
         });
 
         final EditText supplyNameEditText = findViewById(R.id.supply_name);
+        final EditText supplyPriceEditText = findViewById(R.id.supply_price);
+        supplyPriceEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                supplyPriceEditText.setText("");
+            }
+        });
         supplyNameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,13 +132,16 @@ public class AddSupplyActivity extends AppCompatActivity {
     public void submitSupply() {
         EditText supplyNameField = findViewById(R.id.supply_name);
         Spinner urgencySpinner = findViewById(R.id.supply_urgency);
+        EditText supplyPriceField = findViewById(R.id.supply_price);
 
         String supplyName = supplyNameField.getText().toString();
         String urgency = urgencySpinner.getSelectedItem().toString();
+        double supplyPrice = Double.parseDouble(supplyPriceField.getText().toString());
 
         DatabaseReference dbSupply = dbRef.child(supplyName);
         dbSupply.child("name").setValue(supplyName);
         dbSupply.child("urgency").setValue(urgency);
+        dbSupply.child("price").setValue(supplyPrice);
 
         final Intent goBackToSupplies = new Intent(this, SupplyListActivity.class);
         final Bundle extras = new Bundle();

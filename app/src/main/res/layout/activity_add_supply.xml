@@ -43,6 +43,20 @@
         app:backgroundTint="@color/colorPrimaryDark"
         android:textColor="#959696" />
 
+    <EditText
+        android:id="@+id/supply_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="168dp"
+        android:ems="10"
+        android:hint="Supply price ..."
+        android:inputType="textPersonName"
+        android:textColor="#959696"
+        app:backgroundTint="@color/colorPrimaryDark" />
+
     <Spinner
         android:id="@+id/supply_urgency"
         android:layout_width="148dp"
@@ -50,10 +64,24 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="248dp"
         android:layout_marginEnd="236dp"
         android:background="#DDDDDD"
         android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/enter_supply_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="144dp"
+        android:text="Enter Supply Price"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:inputType="numberDecimal"/>
 
     <TextView
         android:id="@+id/select_urgency"
@@ -62,11 +90,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="220dp"
         android:text="Select urgency ..."
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/submit_supply_button"
@@ -75,7 +103,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="233dp"
+        android:layout_marginTop="290dp"
         android:layout_marginRight="14dp"
         android:text="SUBMIT SUPPLY"
         android:textColor="#4D4D4D" />

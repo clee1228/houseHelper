@@ -32,7 +32,7 @@
     <LinearLayout
         android:id="@+id/row2"
         android:layout_width="fill_parent"
-        android:layout_height="63dp"
+        android:layout_height="95dp"
         android:orientation="vertical">
 
         <!-- "Tasks" text view -->
@@ -45,11 +45,22 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16dp" />
 
+        <TextView
+            android:id="@+id/rendered_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="5dp"
+            android:text="Price: $7.50"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
+
         <CheckBox
             android:id="@+id/supply_check_box"
             android:layout_width="113dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="23dp"
+            android:layout_marginTop="5dp"
             android:text="Purchased"
             android:textColor="@color/colorPrimary" />
 
