@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +30,6 @@ public class AddTaskActivity extends AppCompatActivity {
     String username, household;
     ArrayList<User> mUsers;
     Toolbar mToolbar;
-    EditText dateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,6 @@ public class AddTaskActivity extends AppCompatActivity {
         household = extras.getString("houseName");
 
         mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
-        Log.i("Add Task Activity", mUsers.toString());
         taskListLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,10 +139,17 @@ public class AddTaskActivity extends AppCompatActivity {
         EditText taskNameField = findViewById(R.id.task_name_field);
         Spinner frequencySpinner = findViewById(R.id.frequency_spinner);
         Spinner difficultySpinner = findViewById(R.id.difficulty_spinner);
+        EditText dateField = findViewById(R.id.date_editText);
 
         String taskName = taskNameField.getText().toString();
         String frequency = frequencySpinner.getSelectedItem().toString();
         String difficulty = difficultySpinner.getSelectedItem().toString();
+        String startDate ="";
+        try {
+            startDate = getNextMonday(dateField.getText().toString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         //assign task to user with min difficulty score
         User assignedUser = assignTask(TaskListActivity.getDifficultyScore(difficulty));
@@ -151,7 +157,7 @@ public class AddTaskActivity extends AppCompatActivity {
         int newScore = assignedUser.score + TaskListActivity.getDifficultyScore(difficulty);
         assignedUser.setScore(newScore);
 
-        //TODO: pass udpated list of users back with intent
+        mDatabase.child(this.household).child("RotateDate").setValue(startDate);
         mDatabase.child(this.household).child("Tasks").child(taskName).setValue(toAdd);
 
         final Intent goBackToTasks = new Intent(this, TaskListActivity.class);
@@ -170,6 +176,17 @@ public class AddTaskActivity extends AppCompatActivity {
         calendar.set(year, month, day);
 
         return calendar.getTime();
+    }
+
+    public static String getNextMonday(String date) throws ParseException{
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date d = df.parse(date);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        while (cal.get(cal.DAY_OF_WEEK) != Calendar.MONDAY) {
+            cal.add(Calendar.DATE, 1);
+        }
+        return df.format(cal.getTime());
     }
 
     public void setDateEditText(String date) {

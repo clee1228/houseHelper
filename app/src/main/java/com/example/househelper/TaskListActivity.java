@@ -1,33 +1,29 @@
 package com.example.househelper;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class TaskListActivity extends AppCompatActivity {
 
@@ -36,11 +32,14 @@ public class TaskListActivity extends AppCompatActivity {
     private RelativeLayout layout;
     private ArrayList<User> mUsers;
     private ArrayList<Task> mTasks;
+    private Date rotationDate;
+    private boolean checkRotate;
 
     String username, household, displayname;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseTasks;
-    Toolbar mToolbar;
+    private DatabaseReference mDatabaseRotation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,7 @@ public class TaskListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        checkRotate = false;
 
         Intent intent = getIntent();
 
@@ -55,13 +55,12 @@ public class TaskListActivity extends AppCompatActivity {
 
 
         if (intent.hasExtra("users")) {
-            Log.i("Task List Activity", "got here");
             mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
-            Log.i("Task List Activity", mUsers.toString());
         } else {
             mUsers = new ArrayList<>();
         }
         mTasks = new ArrayList<>();
+        rotationDate = new Date();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -142,12 +141,17 @@ public class TaskListActivity extends AppCompatActivity {
                 // this will be called each time `bearRef` or one of its children is modified
                 mTasks = new ArrayList<>();
                 Iterable<DataSnapshot> tasksData = dataSnapshot.getChildren();
-                for (DataSnapshot task : tasksData) {
-                    HashMap<String, Object> taskMap = (HashMap<String, Object>) task.getValue();
-                    Task loadedTask = new Task((String)taskMap.get("name"), (String)taskMap.get("difficulty"),
-                            (String)taskMap.get("frequency"), (boolean)taskMap.get("completed"), (String)taskMap.get("userEmail"));
-                    mTasks.add(loadedTask);
+                try {
+                    for (DataSnapshot task : tasksData) {
+                        HashMap<String, Object> taskMap = (HashMap<String, Object>) task.getValue();
+                        Task loadedTask = new Task((String)taskMap.get("name"), (String)taskMap.get("difficulty"),
+                                (String)taskMap.get("frequency"), (boolean)taskMap.get("completed"), (String)taskMap.get("userEmail"));
+                        mTasks.add(loadedTask);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
+
                 setAdapterAndUpdateData();
             }
             @Override
@@ -158,7 +162,26 @@ public class TaskListActivity extends AppCompatActivity {
 
         mDatabaseTasks.addValueEventListener(taskDataListener);
 
-//        setAdapterAndUpdateData();
+        mDatabaseRotation = db.getReference("Households/" + household + "/RotateDate");
+        ValueEventListener rotationDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Set a breakpoint in this method and run in debug mode!!
+                // this will be called each time `bearRef` or one of its children is modified
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                try {
+                    rotationDate = df.parse(dataSnapshot.getValue(String.class));
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("0", "cancelled");
+            }
+        };
+
+        mDatabaseRotation.addValueEventListener(rotationDataListener);
 
         Boolean isNew = intent.getBooleanExtra("isNew", false);
         if (isNew) {
@@ -179,7 +202,51 @@ public class TaskListActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    //called during onCreate()
+    private void rotateTasks(Date d) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        Log.i("ROTATE TASKS", cal1.getTime().toString());
+        Log.i("ROTATE TASKS", cal2.getTime().toString());
+        cal1.setTime(d);
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        if (cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)) {
+            Log.i("ROTATE TASKS", "got here");
+            ArrayList<Task> currTasks= mUsers.get(0).tasks;
+            for (Task t : currTasks) {
+                t.markAsIncomplete();
+                mDatabaseTasks.child(t.name).child("userEmail").setValue(mUsers.get(1).email);
+            }
+            for (int i = 1; i < mUsers.size(); i++) {
+                ArrayList<Task> newCurr = mUsers.get(i).getTasks();
+                for (Task t : newCurr) {
+                    t.markAsIncomplete();
+                    String newEmail = mUsers.get(0).email;
+                    if (i+1 != mUsers.size()) {
+                        newEmail = mUsers.get(i+1).email;
+                    }
+                    mDatabaseTasks.child(t.name).child("userEmail").setValue(newEmail);
+                }
+//                mUsers.get(i).setTasks(currTasks);
+                currTasks = newCurr;
+            }
+//            mUsers.get(0).setTasks(currTasks);
+            cal1.add(Calendar.DATE, 1);
+            try {
+                mDatabaseRotation.setValue(AddTaskActivity.getNextMonday(df.format(cal1.getTime())));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    //performs rotate task logic here
     private void mergeUserTasks() {
+        if (checkRotate) {
+            return;
+        }
+        Log.i("MERGING", "got here");
         for (Task task : mTasks) {
             if (! task.userEmail.equals("")) {
                 for (User user : mUsers) {
@@ -187,11 +254,14 @@ public class TaskListActivity extends AppCompatActivity {
                         if (!user.tasks.contains(task)) {
                             user.tasks.add(task);
                             user.setScore(user.score + getDifficultyScore(task.difficulty));
-                            Log.i("Merge User Tasks", Integer.toString(user.score));
                         }
                     }
                 }
             }
+        }
+        if (mUsers.size() > 0 && !checkRotate) {
+            rotateTasks(rotationDate);
+            checkRotate = true;
         }
     }
 
