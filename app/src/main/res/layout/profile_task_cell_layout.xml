@@ -49,6 +49,7 @@
             android:id="@+id/profile_task_check_box"
             android:layout_width="113dp"
             android:layout_height="wrap_content"
+            android:buttonTint="#DAA520"
             android:layout_marginStart="23dp"
             android:text="completed"
             android:textColor="@color/colorPrimary" />

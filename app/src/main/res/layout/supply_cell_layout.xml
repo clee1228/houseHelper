@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="23dp"
             android:layout_marginTop="5dp"
+            android:buttonTint="#DAA520"
             android:text="Purchased"
             android:textColor="@color/colorPrimary" />
 

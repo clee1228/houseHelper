@@ -40,7 +40,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Supply name ..."
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="#DAA520"
         android:textColor="#959696" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:hint="Supply price ..."
         android:inputType="textPersonName"
         android:textColor="#959696"
-        app:backgroundTint="@color/colorPrimaryDark" />
+        app:backgroundTint="#DAA520" />
 
     <Spinner
         android:id="@+id/supply_urgency"

@@ -11,6 +11,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:hint="Enter new display name"
+        android:backgroundTint="#DAA520"
         android:id="@+id/newDisplayName"/>
 
 
