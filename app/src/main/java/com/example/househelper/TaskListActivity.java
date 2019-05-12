@@ -44,6 +44,10 @@ public class TaskListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        Log.i("TASK LIST", "onCreate called");
         setContentView(R.layout.activity_task_list);
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -52,14 +56,24 @@ public class TaskListActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         household = intent.getStringExtra("houseName");
+//        if (savedInstanceState != null) {
+//            // Restore value of members from saved state
+//            mUsers = (ArrayList<User>)savedInstanceState.getSerializable("users");
+//            mTasks = (ArrayList<Task>)savedInstanceState.getSerializable("tasks");
+//        } else {
+//            // Probably initialize members with default values for a new instance
+//            mUsers = new ArrayList<>();
+//            mTasks = new ArrayList<>();
+//        }
 
 
         if (intent.hasExtra("users")) {
             mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
+            mTasks = (ArrayList<Task>) intent.getSerializableExtra("tasks");
         } else {
             mUsers = new ArrayList<>();
+            mTasks = new ArrayList<>();
         }
-        mTasks = new ArrayList<>();
         rotationDate = new Date();
         mRecyclerView = (RecyclerView) findViewById(R.id.task_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -76,38 +90,6 @@ public class TaskListActivity extends AppCompatActivity {
         final Intent goToProfile = new Intent(this, ProfileActivity.class);
         final Bundle extras = new Bundle();
         extras.putString("houseName",household);
-
-        messageBoardLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                goToMessageBoard.putExtras(extras);
-                startActivity(goToMessageBoard);
-            }
-        });
-        supplyListLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSupplyList.putExtras(extras);
-                startActivity(goToSupplyList);
-            }
-        });
-        addTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToAddTask.putExtras(extras);
-                goToAddTask.putExtra("users", mUsers);
-                startActivity(goToAddTask);
-            }
-        });
-
-        profileLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToProfile.putExtras(extras);
-                startActivity(goToProfile);
-            }
-        });
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         mDatabaseUsers = db.getReference("Households/" + household + "/Users");
@@ -183,6 +165,45 @@ public class TaskListActivity extends AppCompatActivity {
 
         mDatabaseRotation.addValueEventListener(rotationDataListener);
 
+        messageBoardLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                goToMessageBoard.putExtras(extras);
+                goToMessageBoard.putExtra("users", mUsers);
+                goToMessageBoard.putExtra("tasks", mTasks);
+                startActivity(goToMessageBoard);
+            }
+        });
+        supplyListLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSupplyList.putExtras(extras);
+                goToSupplyList.putExtra("users", mUsers);
+                goToSupplyList.putExtra("tasks", mTasks);
+                startActivity(goToSupplyList);
+            }
+        });
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddTask.putExtras(extras);
+                goToAddTask.putExtra("users", mUsers);
+                goToAddTask.putExtra("tasks", mTasks);
+                startActivity(goToAddTask);
+            }
+        });
+
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfile.putExtras(extras);
+                goToProfile.putExtra("users", mUsers);
+                goToProfile.putExtra("tasks", mTasks);
+                startActivity(goToProfile);
+            }
+        });
+
         Boolean isNew = intent.getBooleanExtra("isNew", false);
         if (isNew) {
             AlertDialog alert = new AlertDialog.Builder(mRecyclerView.getContext()).setMessage("Visit Profile page to check off completed tasks.").show();
@@ -193,7 +214,13 @@ public class TaskListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        this.setAdapterAndUpdateData();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("users", mUsers);
+        savedInstanceState.putSerializable("tasks", mTasks);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     private void setAdapterAndUpdateData() {

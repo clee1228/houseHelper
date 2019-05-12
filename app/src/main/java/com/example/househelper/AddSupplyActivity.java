@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -30,6 +31,8 @@ public class AddSupplyActivity extends AppCompatActivity {
     private DatabaseReference dbRef;
     String username, household;
     Toolbar mToolbar;
+    ArrayList<User> mUsers;
+    ArrayList<Task> mTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class AddSupplyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
         household = extras.getString("houseName");
+        mUsers = (ArrayList<User>)intent.getSerializableExtra("users");
+        mTasks = (ArrayList<Task>)intent.getSerializableExtra("tasks");
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -86,6 +91,8 @@ public class AddSupplyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TaskListLinkIntent.putExtras(extras);
+                TaskListLinkIntent.putExtra("users", mUsers);
+                TaskListLinkIntent.putExtra("tasks", mTasks);
                 startActivity(TaskListLinkIntent);
             }
         });

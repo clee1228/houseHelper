@@ -31,6 +31,8 @@ public class SupplyListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     String household;
     DatabaseReference dbRef;
+    ArrayList<User> mUsers;
+    ArrayList<Task> mTasks;
     Toolbar mToolbar;
 
     @Override
@@ -51,6 +53,8 @@ public class SupplyListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle getExtras = intent.getExtras();
         household = getExtras.getString("houseName");
+        mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
+        mTasks = (ArrayList<Task>) intent.getSerializableExtra("tasks");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         //change to household
@@ -117,6 +121,8 @@ public class SupplyListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TaskListLinkIntent.putExtras(extras);
+                TaskListLinkIntent.putExtra("users", mUsers);
+                TaskListLinkIntent.putExtra("tasks", mTasks);
                 startActivity(TaskListLinkIntent);
             }
         });
@@ -125,6 +131,8 @@ public class SupplyListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AddSupplyIntent.putExtras(extras);
+                AddSupplyIntent.putExtra("users", mUsers);
+                AddSupplyIntent.putExtra("tasks", mTasks);
                 startActivity(AddSupplyIntent);
             }
         });

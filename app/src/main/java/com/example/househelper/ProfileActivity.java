@@ -34,9 +34,10 @@ public class ProfileActivity extends AppCompatActivity {
     String email;
     DatabaseReference dbRef;
     private ArrayList<Task> mTasks;
+    ArrayList<Task> allTasks;
     private RecyclerView taskRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    Toolbar myToolbar;
+    ArrayList<User> mUsers;
 
 
     @Override
@@ -47,6 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle getExtras = intent.getExtras();
         household = getExtras.getString("houseName");
+        allTasks = (ArrayList<Task>) intent.getSerializableExtra("tasks");
+        mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
 
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -127,6 +130,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TaskListLinkIntent.putExtras(extras);
+                TaskListLinkIntent.putExtra("users", mUsers);
+                TaskListLinkIntent.putExtra("tasks", allTasks);
                 startActivity(TaskListLinkIntent);
             }
         });
@@ -143,6 +148,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UserProfileLinkIntent.putExtras(extras);
+                UserProfileLinkIntent.putExtra("users", mUsers);
+                UserProfileLinkIntent.putExtra("tasks", allTasks);
                 startActivity(UserProfileLinkIntent);
             }
         });

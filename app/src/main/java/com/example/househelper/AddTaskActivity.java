@@ -29,6 +29,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     String username, household;
     ArrayList<User> mUsers;
+    ArrayList<Task> mTasks;
     Toolbar mToolbar;
 
     @Override
@@ -89,9 +90,14 @@ public class AddTaskActivity extends AppCompatActivity {
         household = extras.getString("houseName");
 
         mUsers = (ArrayList<User>) intent.getSerializableExtra("users");
+        mTasks = (ArrayList<Task>) intent.getSerializableExtra("tasks");
+
         taskListLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToTasks.putExtras(extras);
+                goToTasks.putExtra("users", mUsers);
+                goToTasks.putExtra("tasks", mTasks);
                 startActivity(goToTasks);
             }
         });
