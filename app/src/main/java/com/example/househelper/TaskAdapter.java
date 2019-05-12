@@ -64,7 +64,6 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
     void bind(User user) {
         this.mUser = user;
-        Log.i("TASK VIEW HOLDER", user.getName());
         mUserNameTextView.setText(user.getName());
         for (Task task : user.getTasks()) {
             LinearLayout taskLine = new LinearLayout(context);
@@ -91,7 +90,6 @@ class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Log.i("TASK VIEW HOLDER", "CLICK REGISTERED");
         Intent goToUserTasks = new Intent();
     }
 

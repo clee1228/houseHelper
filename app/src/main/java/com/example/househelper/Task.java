@@ -1,6 +1,7 @@
 package com.example.househelper;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Task implements Serializable {
     public String name;
@@ -50,6 +51,10 @@ public class Task implements Serializable {
 
     public String getUserEmail() {
         return this.userEmail;
+    }
+
+    public void markAsIncomplete() {
+        this.completed = false;
     }
 
 }

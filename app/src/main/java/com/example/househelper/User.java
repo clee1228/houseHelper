@@ -35,4 +35,8 @@ public class User implements Serializable {
     public void setScore(int newScore) {
         this.score = newScore;
     }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 }
