@@ -1,7 +1,9 @@
 package com.example.househelper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.internal.BottomNavigationItemView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddSupplyActivity extends AppCompatActivity {
 
@@ -129,6 +133,11 @@ public class AddSupplyActivity extends AppCompatActivity {
 
     }
 
+    public final static boolean isValidPrice(String target)
+    {
+        return Pattern.compile("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$").matcher(target).matches();
+    }
+
     public void submitSupply() {
         EditText supplyNameField = findViewById(R.id.supply_name);
         Spinner urgencySpinner = findViewById(R.id.supply_urgency);
@@ -136,18 +145,31 @@ public class AddSupplyActivity extends AppCompatActivity {
 
         String supplyName = supplyNameField.getText().toString();
         String urgency = urgencySpinner.getSelectedItem().toString();
-        double supplyPrice = Double.parseDouble(supplyPriceField.getText().toString());
+        String supplyPriceString = supplyPriceField.getText().toString();
+        if (!isValidPrice(supplyPriceString)) {
+            AlertDialog alertDialog = new AlertDialog.Builder(AddSupplyActivity.this).create();
+            alertDialog.setTitle("Error");
+            alertDialog.setMessage("Inputted price must only include numbers and an optional decimal.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        } else {
 
-        DatabaseReference dbSupply = dbRef.child(supplyName);
-        dbSupply.child("name").setValue(supplyName);
-        dbSupply.child("urgency").setValue(urgency);
-        dbSupply.child("price").setValue(supplyPrice);
+            DatabaseReference dbSupply = dbRef.child(supplyName);
+            dbSupply.child("name").setValue(supplyName);
+            dbSupply.child("urgency").setValue(urgency);
+            dbSupply.child("price").setValue(supplyPriceString);
 
-        final Intent goBackToSupplies = new Intent(this, SupplyListActivity.class);
-        final Bundle extras = new Bundle();
-        extras.putString("houseName",household);
-        goBackToSupplies.putExtras(extras);
-        startActivity(goBackToSupplies);
+            final Intent goBackToSupplies = new Intent(this, SupplyListActivity.class);
+            final Bundle extras = new Bundle();
+            extras.putString("houseName",household);
+            goBackToSupplies.putExtras(extras);
+            startActivity(goBackToSupplies);
+        }
     }
 
 

@@ -63,9 +63,8 @@ public class SupplyListActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> suppliesData = dataSnapshot.getChildren();
                 for (DataSnapshot supply : suppliesData) {
                     HashMap<String, String> supplyMap = (HashMap<String, String>) supply.getValue();
-                    //TODO: change price
                     Supply loadedSupply = new Supply(supplyMap.get("name"),
-                            supplyMap.get("urgency"), "7.50");
+                            supplyMap.get("urgency"), supplyMap.get("price"));
                     mSupplies.add(loadedSupply);
                 }
                 setAdapterAndUpdateData();
