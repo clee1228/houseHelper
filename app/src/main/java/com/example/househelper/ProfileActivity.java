@@ -74,14 +74,18 @@ public class ProfileActivity extends AppCompatActivity {
                 mTasks = new ArrayList<>();
                 Iterable<DataSnapshot> taskData = dataSnapshot.getChildren();
                 for (DataSnapshot task : taskData) {
-                    HashMap<String, String> taskMap = (HashMap<String, String>) task.getValue();
-                    String retrievedEmail = taskMap.get("userEmail");
-                    Object completed = taskMap.get("completed");
-                    Boolean completedBool = (Boolean) completed;
-                    if (retrievedEmail.equals(email) && completedBool.equals(false)) {
-                        Task loadedTask = new Task(taskMap.get("name"),
-                                taskMap.get("difficulty"), taskMap.get("frequency"));
-                        mTasks.add(loadedTask);
+                    try {
+                        HashMap<String, String> taskMap = (HashMap<String, String>) task.getValue();
+                        String retrievedEmail = taskMap.get("userEmail");
+                        Object completed = taskMap.get("completed");
+                        Boolean completedBool = (Boolean) completed;
+                        if (retrievedEmail.equals(email) && completedBool.equals(false)) {
+                            Task loadedTask = new Task(taskMap.get("name"),
+                                    taskMap.get("difficulty"), taskMap.get("frequency"));
+                            mTasks.add(loadedTask);
+                        }
+                    } catch (Exception e) {
+                        continue;
                     }
                 }
                 setAdapterAndUpdateData();
