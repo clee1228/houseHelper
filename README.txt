@@ -1,4 +1,4 @@
-<b> #HouseHelper </b>
+#HouseHelper
 
 Run app, which will start on login screen.
 
