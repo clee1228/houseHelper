@@ -1,11 +1,10 @@
+<b> #HouseHelper </b>
+
 Run app, which will start on login screen.
 
-To log in as an existing user, use any of these logins with household name "MyHouse":
+To log in as an existing user, use login below with household name "MyHouse":
 
-username: davis@gmail.com, password: password
 username: caitlin@gmail.com, password: password
-username: test123@gmail.com, password: password
-username: keren@gmail.com, password: password
 
 Or, to create a new household/join an existing household, follow the "No account yet? Create one" link.
 
@@ -19,5 +18,5 @@ To check off your task, go to profile and check the corresponding checkbox to ma
 
 To view profile information, go to profile -> view profile details to perform actions such as changing passwords/emails.
 
-Thank you for taking the time to check out HouseHelper!
+
 
