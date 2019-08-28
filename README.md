@@ -1,5 +1,9 @@
 # HouseHelper
 
+Across demographics, communication and accountability are essential to developing a comfortable living environment. Conflicting schedules, lack of motivation and commitment, and varying individual standards, can create difficulty delegating/ completing tasks such as household chores and shopping for household items. Even with tasks delegated, it is often burdensome to hold oneself and others accountable for completing tasks on time. 
+
+This is an app that’s directly accessible to all people living in a house helps keep track of tasks and responsibilities. It can help create a sense of accountability and commitment, and improve relationships within the household -- all while accommodating to individual schedules and preferences. This application assists housemates in organizing their chores and communal shopping needs resulting in healthier living relations.
+
 
 Run app, which will start on login screen.
 
